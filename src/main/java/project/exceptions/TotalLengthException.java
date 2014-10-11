@@ -11,5 +11,4 @@ public class TotalLengthException extends Exception {
       System.out.println("Total Length should be from 20 to 65535, not \""
             + num + "\"");
    }
-
 }
