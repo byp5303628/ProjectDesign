@@ -8,6 +8,10 @@ public class Tos {
     */
    private String tos;
 
+   public Tos() {
+      this.tos = "00";
+   }
+
    public String getTos() {
       return tos;
    }
@@ -15,5 +19,8 @@ public class Tos {
    public void setTos(String tos) {
       this.tos = tos;
    }
-   
+
+   public String toString() {
+      return this.tos;
+   }
 }

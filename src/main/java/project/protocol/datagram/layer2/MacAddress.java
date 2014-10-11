@@ -13,6 +13,10 @@ public class MacAddress {
       this.setAddr("000000000000");
    }
 
+   public String toString() {
+      return this.addr;
+   }
+
    public String getAddr() {
       return addr;
    }

@@ -20,8 +20,15 @@ public class TotalLength {
    public void setTotalLength(int num) throws TotalLengthException {
       if (20 <= num && num < 65535) {
          this.totalLength = Integer.toHexString(num);
+         while (this.totalLength.length() < 4) {
+            this.totalLength = "0" + this.totalLength;
+         }
          return;
       }
       throw new TotalLengthException(num);
+   }
+
+   public String toString() {
+      return this.totalLength;
    }
 }

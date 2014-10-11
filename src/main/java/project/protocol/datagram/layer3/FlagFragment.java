@@ -7,11 +7,19 @@ public class FlagFragment {
     */
    private String ff;
 
+   public FlagFragment() {
+      this.ff = "0000";
+   }
+
    public String getFf() {
       return ff;
    }
 
    public void setFf(String ff) {
       this.ff = ff;
+   }
+
+   public String toString() {
+      return this.ff;
    }
 }

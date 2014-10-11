@@ -1,14 +1,24 @@
 package project.protocol.header;
 
+import project.exceptions.InvalidFrameType;
+import project.exceptions.InvalidMacAddressException;
 import project.protocol.datagram.layer2.FrameType;
 import project.protocol.datagram.layer2.MacAddress;
 
 public class Ethernet {
-   private MacAddress srcMac;
    private MacAddress destMac;
+   private MacAddress srcMac;
    private FrameType frameType;
 
-   public Ethernet() {
+   public Ethernet() throws InvalidMacAddressException, InvalidFrameType {
+      this.srcMac = new MacAddress();
+      this.destMac = new MacAddress();
+      this.frameType = new FrameType();
+   }
+
+   public String toString() {
+      return this.destMac.toString() + this.srcMac.toString()
+            + this.frameType.toString();
    }
 
    public MacAddress getSrcMac() {

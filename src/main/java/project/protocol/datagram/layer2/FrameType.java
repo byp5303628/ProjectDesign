@@ -8,7 +8,7 @@ public class FrameType {
     */
 
    private String frameType;
-   private final String INPUT_PATTERN = "[1234567890abcdefABCDEF]{12}";
+   private final String INPUT_PATTERN = "[1234567890abcdefABCDEF]{4}";
 
    public FrameType() throws InvalidFrameType {
       this.setFrameType("0800");
@@ -21,9 +21,12 @@ public class FrameType {
    public void setFrameType(String frameType) throws InvalidFrameType {
       if (frameType.matches(INPUT_PATTERN)) {
          this.frameType = frameType;
-      }
-      else{
+      } else {
          throw new InvalidFrameType(frameType);
       }
+   }
+
+   public String toString() {
+      return this.frameType;
    }
 }

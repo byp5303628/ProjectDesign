@@ -10,6 +10,10 @@ public class Ttl {
 
    private String ttl;
 
+   public Ttl() {
+      this.ttl = "ff";
+   }
+
    public int getTtl() {
       return Integer.parseInt(this.ttl, 16);
    }
@@ -23,6 +27,10 @@ public class Ttl {
       if (!this.isAlive()) {
          throw new DestinationNotReachableException();
       }
+   }
+
+   public String toString() {
+      return this.ttl;
    }
 
    private void decrease() {

@@ -7,6 +7,10 @@ public class Identification {
     */
    private String iden;
 
+   public Identification() {
+      this.iden = "0000";
+   }
+
    public String getIden() {
       return iden;
    }
@@ -15,4 +19,7 @@ public class Identification {
       this.iden = iden;
    }
 
+   public String toString() {
+      return this.iden;
+   }
 }

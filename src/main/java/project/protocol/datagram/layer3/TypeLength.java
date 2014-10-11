@@ -20,4 +20,8 @@ public class TypeLength {
       int second = Integer.parseInt(this.typeLength.substring(1, 2), 16);
       return first * second;
    }
+
+   public String toString() {
+      return this.typeLength;
+   }
 }

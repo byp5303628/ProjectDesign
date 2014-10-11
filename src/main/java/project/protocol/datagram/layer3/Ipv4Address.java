@@ -44,4 +44,8 @@ public class Ipv4Address {
    public boolean equals(Ipv4Address obj) {
       return this.ip.equals(obj.getIp());
    }
+
+   public String toString() {
+      return this.ip;
+   }
 }
