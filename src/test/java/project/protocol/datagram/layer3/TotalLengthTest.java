@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.TotalLengthException;
+import project.protocol.datagram.layer3.ip.TotalLength;
 
 public class TotalLengthTest {
    @Test

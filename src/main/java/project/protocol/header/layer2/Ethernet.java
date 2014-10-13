@@ -1,11 +1,11 @@
-package project.protocol.header;
+package project.protocol.header.layer2;
 
 import project.exceptions.InvalidFrameType;
 import project.exceptions.InvalidMacAddressException;
-import project.protocol.datagram.layer2.FrameType;
-import project.protocol.datagram.layer2.MacAddress;
+import project.protocol.datagram.layer2.ethernet.FrameType;
+import project.protocol.datagram.layer2.ethernet.MacAddress;
 
-public class Ethernet {
+public class Ethernet extends Layer2 {
    private MacAddress destMac;
    private MacAddress srcMac;
    private FrameType frameType;

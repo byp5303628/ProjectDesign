@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.InvalidMacAddressException;
-import project.protocol.datagram.layer2.MacAddress;
+import project.protocol.datagram.layer2.ethernet.MacAddress;
 
 public class MacAddressTest {
    @Test

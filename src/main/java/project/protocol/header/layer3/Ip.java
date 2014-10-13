@@ -1,16 +1,16 @@
-package project.protocol.header;
+package project.protocol.header.layer3;
 
-import project.protocol.datagram.layer3.Checksum;
-import project.protocol.datagram.layer3.FlagFragment;
-import project.protocol.datagram.layer3.Identification;
-import project.protocol.datagram.layer3.InternetType;
-import project.protocol.datagram.layer3.Ipv4Address;
-import project.protocol.datagram.layer3.Tos;
-import project.protocol.datagram.layer3.TotalLength;
-import project.protocol.datagram.layer3.Ttl;
-import project.protocol.datagram.layer3.TypeLength;
+import project.protocol.datagram.layer3.ip.Checksum;
+import project.protocol.datagram.layer3.ip.FlagFragment;
+import project.protocol.datagram.layer3.ip.Identification;
+import project.protocol.datagram.layer3.ip.InternetType;
+import project.protocol.datagram.layer3.ip.Ipv4Address;
+import project.protocol.datagram.layer3.ip.Tos;
+import project.protocol.datagram.layer3.ip.TotalLength;
+import project.protocol.datagram.layer3.ip.Ttl;
+import project.protocol.datagram.layer3.ip.TypeLength;
 
-public class Ip {
+public class Ip extends Layer3 {
    private TypeLength typeLength;
    private Tos tos;
    private TotalLength totalLength;

@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.DestinationNotReachableException;
+import project.protocol.datagram.layer3.ip.Ttl;
 
 public class TtlTest {
 

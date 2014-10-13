@@ -1,4 +1,4 @@
-package project.protocol.datagram.layer3;
+package project.protocol.datagram.layer3.ip;
 
 public class FlagFragment {
    /*

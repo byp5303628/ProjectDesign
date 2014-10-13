@@ -1,4 +1,4 @@
-package project.protocol.datagram.layer2;
+package project.protocol.datagram.layer2.ethernet;
 
 import project.exceptions.InvalidFrameType;
 

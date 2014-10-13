@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import project.exceptions.InvalidFrameType;
 import project.exceptions.InvalidMacAddressException;
+import project.protocol.header.layer2.Ethernet;
 
 public class EthernetTest {
    @Test

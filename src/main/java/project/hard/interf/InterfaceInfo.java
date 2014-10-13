@@ -1,6 +1,6 @@
 package project.hard.interf;
 
-import project.protocol.datagram.layer2.MacAddress;
+import project.protocol.datagram.layer2.ethernet.MacAddress;
 
 public abstract class InterfaceInfo {
    static public enum Mode {
