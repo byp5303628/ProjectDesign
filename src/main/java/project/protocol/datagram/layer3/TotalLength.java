@@ -10,7 +10,7 @@ public class TotalLength {
    private String totalLength;
 
    public TotalLength() {
-      this.totalLength = "14";
+      this.totalLength = "0014";
    }
 
    public int getTotalLength() {

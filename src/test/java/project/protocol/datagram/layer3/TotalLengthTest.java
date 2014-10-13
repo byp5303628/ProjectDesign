@@ -25,4 +25,11 @@ public class TotalLengthTest {
       TotalLength t = new TotalLength();
       t.setTotalLength(65535);
    }
+   
+   @Test
+   public void testToString() throws TotalLengthException {
+      TotalLength t = new TotalLength();
+      t.setTotalLength(21);
+      Assert.assertEquals(t.toString(), "0015");
+   }
 }
