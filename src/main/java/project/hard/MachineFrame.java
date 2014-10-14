@@ -37,6 +37,7 @@ public class MachineFrame {
          throws BoardExistingException, SlotNotExistException {
       if (this.getBoard(slotNum) == null) {
          this.boardList.add(slotNum, board);
+         board.setSlot(slotNum);
       } else {
          throw new BoardExistingException(slotNum);
       }

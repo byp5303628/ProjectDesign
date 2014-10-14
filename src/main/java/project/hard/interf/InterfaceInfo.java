@@ -2,7 +2,7 @@ package project.hard.interf;
 
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 
-public abstract class InterfaceInfo {
+public class InterfaceInfo {
    static public enum Mode {
       Bridge, Route,
    }
@@ -12,6 +12,7 @@ public abstract class InterfaceInfo {
    private String description;
    private Mode mode;
    private InterfaceInfo linkedTo;
+   private String status;
 
    public MacAddress getAddr() {
       return addr;
@@ -51,5 +52,13 @@ public abstract class InterfaceInfo {
 
    public void setName(String name) {
       this.name = name;
+   }
+
+   public String getStatus() {
+      return status;
+   }
+
+   public void setStatus(String status) {
+      this.status = status;
    }
 }
