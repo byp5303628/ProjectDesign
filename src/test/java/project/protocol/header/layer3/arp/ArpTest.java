@@ -1,9 +1,10 @@
-package project.protocol.header.layer3;
+package project.protocol.header.layer3.arp;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.InvalidMacAddressException;
+import project.protocol.header.layer3.Arp;
 
 public class ArpTest {
    @Test

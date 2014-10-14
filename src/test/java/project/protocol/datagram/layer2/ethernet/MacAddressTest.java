@@ -1,15 +1,14 @@
-package project.protocol.datagram.layer2;
+package project.protocol.datagram.layer2.ethernet;
 
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import project.exceptions.InvalidMacAddressException;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 
 public class MacAddressTest {
    @Test
-   public void testMacAddress() throws InvalidMacAddressException {
+   public void testMacAddress() {
       MacAddress mac1 = new MacAddress();
       MacAddress mac2 = new MacAddress();
       mac2.setAddr("FFFFFFFFFFFF");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
+import project.exceptions.SlotNotExistException;
 
 public class MachineFrame {
    /*
@@ -12,14 +13,13 @@ public class MachineFrame {
     * FunctionBoard or InterfaceBoard
     */
    private int slotNumber;
-   private String description;
    private ArrayList<Board> boardList;
 
    public MachineFrame(int slotNumber) {
       this.slotNumber = slotNumber;
       this.boardList = new ArrayList<Board>();
       for (int i = 0; i < slotNumber; i++) {
-         this.boardList.add(new Board());
+         this.boardList.add(null);
       }
    }
 
@@ -31,13 +31,30 @@ public class MachineFrame {
     * @param board
     *           , which is the board
     * @throws BoardExistingException
+    * @throws SlotNotExistException
     */
    public void insertBoard(int slotNum, Board board)
-         throws BoardExistingException {
-      if (this.boardList.get(slotNum).getType() == null) {
+         throws BoardExistingException, SlotNotExistException {
+      if (this.getBoard(slotNum) == null) {
          this.boardList.add(slotNum, board);
       } else {
          throw new BoardExistingException(slotNum);
+      }
+   }
+
+   /**
+    * Query the specific slot number's board, if not exist, return null
+    * 
+    * @param slotNum
+    *           , which is the specific slot number we want to query
+    * @return
+    * @throws SlotNotExistException
+    */
+   public Board getBoard(int slotNum) throws SlotNotExistException {
+      if (0 <= slotNum && slotNum < this.slotNumber)
+         return this.boardList.get(slotNum);
+      else {
+         throw new SlotNotExistException(slotNum);
       }
    }
 
@@ -47,33 +64,28 @@ public class MachineFrame {
     * @param slotNum
     *           , which is the specific slot number we want to insert
     * @throws BoardNotExistingException
+    * @throws SlotNotExistException
     */
-   public void deleteBoard(int slotNum) throws BoardNotExistingException {
-      if (this.boardList.get(slotNum).getType() == null) {
+   public void deleteBoard(int slotNum) throws BoardNotExistingException,
+         SlotNotExistException {
+      if (this.getBoard(slotNum) == null) {
          throw new BoardNotExistingException(slotNum);
       }
-      this.boardList.add(slotNum, new Board());
+      this.boardList.add(slotNum, null);
    }
 
    /**
     * Display the session of the machine frame
     */
    public void displaySessions() {
-      for (Board board : this.boardList) {
-         board.displaySession();
+      for (int i = 0; i < this.slotNumber; i++) {
+         System.out.println("Slot " + i + ":");
+         this.boardList.get(i).displaySession();
       }
-   }
-
-   public String getDescription() {
-      return description;
    }
 
    public int getSlotNumber() {
       return this.slotNumber;
-   }
-
-   public void setDescription(String description) {
-      this.description = description;
    }
 
    public void processPacket() {

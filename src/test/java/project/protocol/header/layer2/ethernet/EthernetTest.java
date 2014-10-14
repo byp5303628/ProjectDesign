@@ -1,4 +1,4 @@
-package project.protocol.header;
+package project.protocol.header.layer2.ethernet;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

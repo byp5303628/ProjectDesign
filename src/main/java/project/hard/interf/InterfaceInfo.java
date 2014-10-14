@@ -8,8 +8,10 @@ public abstract class InterfaceInfo {
    }
 
    private MacAddress addr;
+   private String name;
    private String description;
    private Mode mode;
+   private InterfaceInfo linkedTo;
 
    public MacAddress getAddr() {
       return addr;
@@ -33,5 +35,21 @@ public abstract class InterfaceInfo {
 
    public void setMode(Mode mode) {
       this.mode = mode;
+   }
+
+   public InterfaceInfo getLinkedTo() {
+      return linkedTo;
+   }
+
+   public void setLinkedTo(InterfaceInfo linkedTo) {
+      this.linkedTo = linkedTo;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
    }
 }
