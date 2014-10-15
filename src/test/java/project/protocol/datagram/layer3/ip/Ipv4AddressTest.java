@@ -3,6 +3,7 @@ package project.protocol.datagram.layer3.ip;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import project.exceptions.InvalidPointStringException;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 
 public class Ipv4AddressTest {
@@ -15,7 +16,7 @@ public class Ipv4AddressTest {
    }
    
    @Test
-   public void testPointString(){
+   public void testPointString() throws InvalidPointStringException{
       Ipv4Address ip = new Ipv4Address();
       Assert.assertEquals(ip.getPointString(), "192.168.1.1");
       ip.setPointString("1.1.1.1");

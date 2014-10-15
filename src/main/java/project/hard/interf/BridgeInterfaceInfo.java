@@ -6,6 +6,5 @@ public class BridgeInterfaceInfo extends InterfaceInfo {
    BridgeInterfaceInfo() {
       this.setMode(Mode.Bridge);
       this.setAddr(MacAddress.makeMacAddress());
-      
    }
 }

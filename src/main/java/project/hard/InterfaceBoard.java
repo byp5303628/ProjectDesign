@@ -50,8 +50,7 @@ public class InterfaceBoard extends Board {
    }
 
    public void displaySession() {
-      // TODO Auto-generated method stub
-
+      return;
    }
 
 }

@@ -1,10 +1,14 @@
 package project.protocol.datagram.layer3.ip;
 
+import project.exceptions.InvalidPointStringException;
+
 public class Ipv4Address {
    /*
     * The core part of the ip header
     * it's a 32 bit datagram.
     */
+   private final static String POINT_STRING_PATTERN =
+         "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
 
    private String ip;
 
@@ -28,15 +32,22 @@ public class Ipv4Address {
       return num1 + "." + num2 + "." + num3 + "." + num4;
    }
 
-   public void setPointString(String input) {
+   public void setPointString(String input) throws InvalidPointStringException {
+      if (!input.matches(POINT_STRING_PATTERN)) {
+         throw new InvalidPointStringException(input);
+      }
       String[] s = input.split("\\.");
       String result = "";
       for (String sub : s) {
          int num = Integer.parseInt(sub);
-         if (num > 15)
+         if (15 < num && num <= 255) {
             result += Integer.toHexString(num);
-         else
+         } else if (num <= 15) {
             result = result + '0' + Integer.toHexString(num);
+         } else {
+            throw new InvalidPointStringException(input);
+         }
+
       }
       this.setIp(result);
    }
