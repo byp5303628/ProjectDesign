@@ -20,7 +20,7 @@ public class Arp extends Layer3 {
    private MacAddress recvMac;
    private Ipv4Address recvIp;
 
-   public Arp() throws InvalidMacAddressException {
+   public Arp() {
       this.hardwareLength = new HardwareLength();
       this.hardwareType = new HardwareType();
       this.protocolLength = new ProtocolLength();
@@ -32,15 +32,25 @@ public class Arp extends Layer3 {
       this.recvMac = new MacAddress();
    }
 
+   /**
+    * Judge if the arp packet is a arp request
+    * 
+    * @return
+    */
    public boolean isRequest() {
       return this.getArpOption().isArpRequest();
    }
 
+   /**
+    * Judge if the arp packet is a arp response
+    * 
+    * @return
+    */
    public boolean isResponse() {
       return this.getArpOption().isArpResponse();
    }
 
-   public static Arp makeArpRequest() throws InvalidMacAddressException {
+   public static Arp makeArpRequest() {
       Arp arp = new Arp();
       ArpOption ao = new ArpOption();
       ao.arpRequest();

@@ -13,6 +13,10 @@ public class InterfaceInfo {
    private Mode mode;
    private InterfaceInfo linkedTo;
    private String status;
+   /**
+    * Used for user control, user could set it up and down to control its status
+    */
+   private String updown;
 
    public MacAddress getAddr() {
       return addr;
@@ -60,5 +64,13 @@ public class InterfaceInfo {
 
    public void setStatus(String status) {
       this.status = status;
+   }
+
+   public String getUpdown() {
+      return updown;
+   }
+
+   public void setUpdown(String updown) {
+      this.updown = updown;
    }
 }

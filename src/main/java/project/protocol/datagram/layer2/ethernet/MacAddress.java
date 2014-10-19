@@ -13,6 +13,12 @@ public class MacAddress {
       this.setAddr("000000000000");
    }
 
+   public static MacAddress makeBraodcastMacaddress() {
+      MacAddress mac = new MacAddress();
+      mac.setAddr("ffffffffffff");
+      return mac;
+   }
+
    /**
     * Generate a random mac address
     * 

@@ -3,6 +3,7 @@ package project.hard.interf;
 import project.exceptions.InvalidPointStringException;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
+import project.protocol.header.layer3.Arp;
 
 public class RouteInterfaceInfo extends InterfaceInfo {
    private Ipv4Address ipv4Address;
@@ -11,6 +12,13 @@ public class RouteInterfaceInfo extends InterfaceInfo {
       this.setMode(Mode.Route);
       this.setAddr(MacAddress.makeMacAddress());
       this.ipv4Address = new Ipv4Address();
+   }
+
+   public void sendArpRequest(Ipv4Address target) {
+      Arp arp = Arp.makeArpRequest();
+      arp.setSendIp(this.ipv4Address);
+      arp.setRecvIp(target);
+      
    }
 
    /**
