@@ -1,8 +1,12 @@
 package project.hard.interf;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.InvalidPointStringException;
+import project.protocol.datagram.layer3.ip.Ipv4Address;
+import project.protocol.header.Packet;
+import project.protocol.header.layer3.Arp;
 
 public class RouteInterfaceInfoTest {
    @Test
@@ -24,5 +28,12 @@ public class RouteInterfaceInfoTest {
       ri.setIpv4Address("192.168.11.256");
    }
 
-
+   @Test
+   public void testSendArpRequest() {
+      RouteInterfaceInfo r = new RouteInterfaceInfo();
+      Packet p = r.sendArpRequest(new Ipv4Address());
+      Assert.assertEquals(p.getLayer3(), "ARP");
+      Arp a = (Arp) p.getL3();
+      Assert.assertTrue(a.isRequest());      
+   }
 }

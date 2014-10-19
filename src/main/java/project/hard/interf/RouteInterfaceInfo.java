@@ -3,6 +3,8 @@ package project.hard.interf;
 import project.exceptions.InvalidPointStringException;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
+import project.protocol.header.Packet;
+import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer3.Arp;
 
 public class RouteInterfaceInfo extends InterfaceInfo {
@@ -14,11 +16,23 @@ public class RouteInterfaceInfo extends InterfaceInfo {
       this.ipv4Address = new Ipv4Address();
    }
 
-   public void sendArpRequest(Ipv4Address target) {
+   /**
+    * Create a packet which is an arp request, includes L2 for ethernet
+    * 
+    * @param target
+    *           , which is the dest ip we want to get its mac address
+    * @return
+    */
+   public Packet sendArpRequest(Ipv4Address target) {
+      Packet p = new Packet();
+      Ethernet e = Ethernet.makeArpEthernet();
+      e.setSrcMac(this.getAddr());
+      p.setL2(e);
       Arp arp = Arp.makeArpRequest();
       arp.setSendIp(this.ipv4Address);
       arp.setRecvIp(target);
-      
+      p.setL3(arp);
+      return p;
    }
 
    /**

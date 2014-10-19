@@ -1,6 +1,5 @@
 package project.protocol.datagram.layer2.ethernet;
 
-import project.exceptions.InvalidFrameType;
 
 public class FrameType {
    /*
@@ -8,22 +7,33 @@ public class FrameType {
     */
 
    private String frameType;
-   private final String INPUT_PATTERN = "[1234567890abcdefABCDEF]{4}";
 
-   public FrameType() throws InvalidFrameType {
+   public FrameType() {
       this.setFrameType("0800");
+   }
+
+   /**
+    * Make an Arp frame type
+    * 
+    * @return
+    */
+   public static FrameType makeArpFrameType() {
+      FrameType f = new FrameType();
+      f.setFrameType("0806");
+      return f;
+   }
+   
+   public static FrameType makeIpFrameType() {
+      FrameType f = new FrameType();
+      return f;
    }
 
    public String getFrameType() {
       return frameType;
    }
 
-   public void setFrameType(String frameType) throws InvalidFrameType {
-      if (frameType.matches(INPUT_PATTERN)) {
-         this.frameType = frameType;
-      } else {
-         throw new InvalidFrameType(frameType);
-      }
+   public void setFrameType(String frameType) {
+      this.frameType = frameType;
    }
 
    public String toString() {
