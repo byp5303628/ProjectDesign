@@ -7,21 +7,23 @@ import project.exceptions.InterfaceNotExistException;
 import project.hard.interf.InterfaceInfo;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
+import project.protocol.header.Packet;
+import project.soft.route.RouteTable;
 
 public class InterfaceBoard extends Board {
    // TODO add route table
-
+   static private RouteTable routeTable = new RouteTable();
    /**
     * Need to add access from the interfaceInfo, such as insert, query, delete
     */
-   static private HashMap<Ipv4Address, MacAddress> arpTable;
+   static private HashMap<Ipv4Address, MacAddress> arpTable =
+         new HashMap<Ipv4Address, MacAddress>();
    // TODO add mac forward table
 
    private ArrayList<InterfaceInfo> interfaceList;
 
    public InterfaceBoard() {
       this.setType("Interface Board");
-      arpTable = new HashMap<Ipv4Address, MacAddress>();
    }
 
    /**
@@ -64,6 +66,7 @@ public class InterfaceBoard extends Board {
          InterfaceInfo inter = new InterfaceInfo();
          String name = "G" + this.getSlot() + "/0/" + i;
          inter.setName(name);
+         inter.setBoard(this);
          this.interfaceList.add(inter);
       }
       this.setType("Interface Board");
@@ -87,6 +90,26 @@ public class InterfaceBoard extends Board {
 
    public void displaySession() {
       return;
+   }
+
+   /**
+    * Interface board handle packet routing use its routing table
+    * 
+    * @param packet
+    */
+   public void processLayer3(Packet packet) {
+      // TODO Auto-generated method stub
+
+   }
+
+   /**
+    * Interface board handle packet forwarding use its mac table
+    * 
+    * @param packet
+    */
+   public void processLayer2(Packet packet) {
+      // TODO Auto-generated method stub
+
    }
 
 }

@@ -1,5 +1,6 @@
 package project.protocol.header;
 
+import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer2.Layer2;
 import project.protocol.header.layer3.Layer3;
@@ -18,6 +19,15 @@ public class Packet {
       } else {
          return "INVALID_LAYER3_PROTOCOL";
       }
+   }
+
+   /**
+    * Get the packet's Dest mac
+    * 
+    * @return
+    */
+   public MacAddress getDestMac() {
+      return ((Ethernet) (this.l2)).getDestMac();
    }
 
    public Layer3 getL3() {
@@ -53,26 +63,5 @@ public class Packet {
                this.l2.toString() + this.l3.toString() + this.l4.toString();
          return result;
       }
-   }
-
-   public void processPacket() {
-      processLayer2();
-      processLayer3();
-      processLayer4();
-   }
-
-   private void processLayer4() {
-      // TODO Auto-generated method stub
-
-   }
-
-   private void processLayer3() {
-      // TODO Auto-generated method stub
-
-   }
-
-   private void processLayer2() {
-      // TODO Auto-generated method stub
-
    }
 }

@@ -36,6 +36,19 @@ public class RouteInterfaceInfo extends InterfaceInfo {
    }
 
    /**
+    * First send Arp request to LinkedTo interface, and get Arp response, wait
+    * for 5 seconds, if not get response, return null
+    * 
+    * @return
+    */
+   public Arp processArpToBroadcast(Ipv4Address target) {
+      // send arp request
+      Packet p = this.sendArpRequest(target);
+      this.getLinkedTo().processPacket(p);
+      return null;
+   }
+
+   /**
     * Set the ipv4 address of this interface
     * 
     * @param pointString
