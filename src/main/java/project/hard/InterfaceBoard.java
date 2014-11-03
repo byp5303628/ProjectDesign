@@ -12,7 +12,7 @@ import project.soft.route.RouteTable;
 
 public class InterfaceBoard extends Board {
    // TODO add route table
-   static private RouteTable routeTable = new RouteTable();
+   static public RouteTable routeTable = new RouteTable();
    /**
     * Need to add access from the interfaceInfo, such as insert, query, delete
     */

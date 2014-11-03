@@ -1,6 +1,7 @@
 package project.hard.interf;
 
 import project.exceptions.InvalidPointStringException;
+import project.hard.InterfaceBoard;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
@@ -49,15 +50,20 @@ public class RouteInterfaceInfo extends InterfaceInfo {
    }
 
    /**
-    * Set the ipv4 address of this interface
+    * Set the ipv4 address of this interface, at the same time update the
+    * routing table for direct type routing item
     * 
     * @param pointString
     *           , which is the point string like 192.168.1.1
+    * @param mask
+    *           , which is the mask of the ip address
     * @throws InvalidPointStringException
     */
-   public void setIpv4Address(String pointString)
+   public void setIpv4Address(String pointString, int mask)
          throws InvalidPointStringException {
       this.ipv4Address.setPointString(pointString);
+      InterfaceBoard.routeTable.insertRouteItem(this.ipv4Address, mask,
+            "Direct", this);
    }
 
    /**

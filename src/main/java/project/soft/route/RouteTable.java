@@ -97,10 +97,10 @@ public class RouteTable {
          this.routeList.remove(ri);
       }
    }
-   
-   public void displayRouteTable(){
+
+   public void displayRouteTable() {
       System.out.println("---Routing Table---");
-      for (RouteItem ri:this.routeList){
+      for (RouteItem ri : this.routeList) {
          System.out.println(ri.toString());
       }
    }
