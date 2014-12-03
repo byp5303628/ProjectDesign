@@ -11,3 +11,5 @@ with Maven to manage the project
 to build:
 >> mvn install
 
+get file use command:
+>> git clone git@github.com:byp5303628/ProjectDesign.git
