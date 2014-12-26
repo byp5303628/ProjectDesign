@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
+import project.hard.board.Board;
+import project.hard.board.InterfaceBoard;
 
 public class MachineFrameTest {
    @Test

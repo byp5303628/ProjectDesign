@@ -1,4 +1,4 @@
-package project.sort.route;
+package project.soft.route;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

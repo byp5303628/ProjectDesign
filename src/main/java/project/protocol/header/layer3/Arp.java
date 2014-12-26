@@ -1,6 +1,5 @@
 package project.protocol.header.layer3;
 
-import project.exceptions.InvalidMacAddressException;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.arp.ArpOption;
 import project.protocol.datagram.layer3.arp.HardwareLength;
@@ -61,7 +60,7 @@ public class Arp extends Layer3 {
       return arp;
    }
 
-   public static Arp makeArpResponse() throws InvalidMacAddressException {
+   public static Arp makeArpResponse() {
       Arp arp = new Arp();
       ArpOption ao = new ArpOption();
       ao.arpResponse();

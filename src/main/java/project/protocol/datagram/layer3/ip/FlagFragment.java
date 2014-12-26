@@ -3,7 +3,7 @@ package project.protocol.datagram.layer3.ip;
 public class FlagFragment {
    /*
     * Ipv4 header's 5th part, 16 bits
-    * to help handle the fragment pieces
+    * to help handleIn the fragment pieces
     */
    private String ff;
 

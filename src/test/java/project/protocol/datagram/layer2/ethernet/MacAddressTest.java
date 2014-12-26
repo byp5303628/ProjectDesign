@@ -18,4 +18,6 @@ public class MacAddressTest {
       MacAddress mac3 = new MacAddress();
       Assert.assertEquals(mac3.getAddr(), "000000000000");
    }
+
+
 }

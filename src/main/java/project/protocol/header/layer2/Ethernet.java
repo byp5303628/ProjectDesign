@@ -17,7 +17,7 @@ public class Ethernet extends Layer2 {
    public static Ethernet makeArpEthernet() {
       Ethernet e = new Ethernet();
       e.setFrameType(FrameType.makeArpFrameType());
-      e.setDestMac(MacAddress.makeBraodcastMacaddress());
+      e.setDestMac(MacAddress.makeBraodcastMacAddress());
       return e;
    }
 

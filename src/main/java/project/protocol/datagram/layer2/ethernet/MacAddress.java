@@ -1,6 +1,5 @@
 package project.protocol.datagram.layer2.ethernet;
 
-import project.exceptions.InvalidMacAddressException;
 import project.help.Helper;
 
 public class MacAddress {
@@ -13,7 +12,7 @@ public class MacAddress {
       this.setAddr("000000000000");
    }
 
-   public static MacAddress makeBraodcastMacaddress() {
+   public static MacAddress makeBraodcastMacAddress() {
       MacAddress mac = new MacAddress();
       mac.setAddr("ffffffffffff");
       return mac;
@@ -23,7 +22,6 @@ public class MacAddress {
     * Generate a random mac address
     * 
     * @return
-    * @throws InvalidMacAddressException
     */
    public static MacAddress makeMacAddress() {
       MacAddress m = new MacAddress();

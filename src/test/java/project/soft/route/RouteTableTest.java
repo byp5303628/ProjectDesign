@@ -1,4 +1,4 @@
-package project.sort.route;
+package project.soft.route;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -35,12 +35,12 @@ public class RouteTableTest {
 
       Ipv4Address ip = new Ipv4Address();
       ip.setPointString("1.1.2.100");
-      rt.displayRouteTable();
+      rt.display();
 
       InterfaceInfo result = rt.getOutputInterface(ip);
       Assert.assertEquals(result.getName(), inter2.getName());
       rt.deleteRouteItem(tar2, 24);
       Assert.assertNull(rt.getOutputInterface(ip));
-      rt.displayRouteTable();
+      rt.display();
    }
 }

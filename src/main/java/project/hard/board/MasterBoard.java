@@ -1,10 +1,9 @@
-package project.hard;
+package project.hard.board;
 
-public class FunctionBoard extends Board {
+public class MasterBoard extends Board {
 
    public void displaySession() {
       // TODO Auto-generated method stub
 
    }
-
 }
