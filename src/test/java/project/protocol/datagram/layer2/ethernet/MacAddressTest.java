@@ -4,8 +4,6 @@ package project.protocol.datagram.layer2.ethernet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import project.protocol.datagram.layer2.ethernet.MacAddress;
-
 public class MacAddressTest {
    @Test
    public void testMacAddress() {

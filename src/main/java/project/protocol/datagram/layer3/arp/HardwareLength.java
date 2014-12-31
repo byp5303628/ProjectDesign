@@ -7,6 +7,10 @@ public class HardwareLength {
     */
    private String hardwareLength;
 
+   public HardwareLength(String hardwareLength) {
+      this.hardwareLength = hardwareLength;
+   }
+
    public HardwareLength() {
       this.hardwareLength = "06";
    }

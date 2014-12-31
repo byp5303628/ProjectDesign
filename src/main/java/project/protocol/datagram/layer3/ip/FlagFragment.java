@@ -7,6 +7,10 @@ public class FlagFragment {
     */
    private String ff;
 
+   public FlagFragment(String ff) {
+      this.ff = ff;
+   }
+
    public FlagFragment() {
       this.ff = "0000";
    }

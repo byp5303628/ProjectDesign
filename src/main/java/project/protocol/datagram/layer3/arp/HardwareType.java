@@ -7,6 +7,10 @@ public class HardwareType {
     */
    private String hardwareType;
 
+   public HardwareType(String hardwareType) {
+      this.hardwareType = hardwareType;
+   }
+
    public HardwareType() {
       this.hardwareType = "0001";
    }

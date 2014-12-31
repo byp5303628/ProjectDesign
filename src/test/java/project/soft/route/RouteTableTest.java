@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import project.exceptions.InvalidPointStringException;
 import project.hard.interf.InterfaceInfo;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
-import project.soft.route.RouteTable;
 
 public class RouteTableTest {
    @Test

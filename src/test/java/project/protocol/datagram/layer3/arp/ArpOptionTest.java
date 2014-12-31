@@ -7,10 +7,9 @@ import org.testng.annotations.Test;
 public class ArpOptionTest {
    @Test
    public void testArpReqResp() {
-      ArpOption a = new ArpOption();
-      a.arpRequest();
+      ArpOption a = ArpOption.makeArpRequestOption();
       Assert.assertTrue(a.isArpRequest());
-      a.arpResponse();
-      Assert.assertTrue(a.isArpResponse());
+      ArpOption b = ArpOption.makeArpResponseOption();
+      Assert.assertTrue(b.isArpResponse());
    }
 }

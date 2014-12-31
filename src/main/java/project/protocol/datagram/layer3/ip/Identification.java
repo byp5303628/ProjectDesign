@@ -8,7 +8,11 @@ public class Identification {
    private String iden;
 
    public Identification() {
-      this.iden = "0000";
+      this("0000");
+   }
+
+   public Identification(String iden) {
+      this.iden = iden;
    }
 
    public String getIden() {

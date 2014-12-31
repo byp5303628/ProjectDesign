@@ -12,6 +12,10 @@ public class Tos {
       this.tos = "00";
    }
 
+   public Tos(String tos) {
+      this.tos = tos;
+   }
+
    public String getTos() {
       return tos;
    }

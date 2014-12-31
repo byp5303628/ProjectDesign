@@ -7,6 +7,10 @@ public class ProtocolType {
     */
    private String protocolType;
 
+   public ProtocolType(String protocolType) {
+      this.protocolType = protocolType;
+   }
+
    public ProtocolType() {
       this.protocolType = "0800";
    }

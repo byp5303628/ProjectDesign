@@ -2,6 +2,7 @@ package project.protocol.header.layer2;
 
 import project.protocol.datagram.layer2.ethernet.FrameType;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
+import project.protocol.header.layer3.Layer3Protocol;
 
 public class Ethernet extends Layer2 {
    private MacAddress destMac;
@@ -56,5 +57,10 @@ public class Ethernet extends Layer2 {
 
    public void setFrameType(FrameType frameType) {
       this.frameType = frameType;
+   }
+
+   @Override
+   public Layer3Protocol getNextProtocol() {
+      return frameType.getNextProtocol();
    }
 }

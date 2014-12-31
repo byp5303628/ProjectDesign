@@ -28,7 +28,7 @@ public class MachineFrameTest {
       mf.insertBoard(0, b);
       mf.insertBoard(0, b);
    }
-   
+
    @Test
    public void testGetValidBoard() throws BoardExistingException,
          SlotNotExistException {

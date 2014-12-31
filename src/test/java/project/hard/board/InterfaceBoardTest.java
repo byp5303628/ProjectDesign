@@ -1,11 +1,9 @@
-package project.hard;
+package project.hard.board;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import project.exceptions.InterfaceNotExistException;
-import project.hard.board.Board;
-import project.hard.board.InterfaceBoard;
 import project.hard.interf.InterfaceInfo;
 
 public class InterfaceBoardTest {

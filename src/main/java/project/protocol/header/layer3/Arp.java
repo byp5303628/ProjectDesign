@@ -1,11 +1,7 @@
 package project.protocol.header.layer3;
 
 import project.protocol.datagram.layer2.ethernet.MacAddress;
-import project.protocol.datagram.layer3.arp.ArpOption;
-import project.protocol.datagram.layer3.arp.HardwareLength;
-import project.protocol.datagram.layer3.arp.HardwareType;
-import project.protocol.datagram.layer3.arp.ProtocolLength;
-import project.protocol.datagram.layer3.arp.ProtocolType;
+import project.protocol.datagram.layer3.arp.*;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 
 public class Arp extends Layer3 {
@@ -20,19 +16,19 @@ public class Arp extends Layer3 {
    private Ipv4Address recvIp;
 
    public Arp() {
-      this.hardwareLength = new HardwareLength();
       this.hardwareType = new HardwareType();
-      this.protocolLength = new ProtocolLength();
       this.protocolType = new ProtocolType();
+      this.hardwareLength = new HardwareLength();
+      this.protocolLength = new ProtocolLength();
       this.arpOption = new ArpOption();
-      this.sendIp = new Ipv4Address();
       this.sendMac = new MacAddress();
-      this.recvIp = new Ipv4Address();
+      this.sendIp = new Ipv4Address();
       this.recvMac = new MacAddress();
+      this.recvIp = new Ipv4Address();
    }
 
    /**
-    * Judge if the arp packet is a arp request
+    * Judge if the arp packet is an arp request
     * 
     * @return
     */
@@ -51,8 +47,7 @@ public class Arp extends Layer3 {
 
    public static Arp makeArpRequest() {
       Arp arp = new Arp();
-      ArpOption ao = new ArpOption();
-      ao.arpRequest();
+      ArpOption ao = ArpOption.makeArpRequestOption();
       MacAddress broadcast = new MacAddress();
       broadcast.setAddr("ffffffffffff");
       arp.setArpOption(ao);
@@ -62,8 +57,7 @@ public class Arp extends Layer3 {
 
    public static Arp makeArpResponse() {
       Arp arp = new Arp();
-      ArpOption ao = new ArpOption();
-      ao.arpResponse();
+      ArpOption ao = ArpOption.makeArpResponseOption();
       arp.setArpOption(ao);
       return arp;
    }

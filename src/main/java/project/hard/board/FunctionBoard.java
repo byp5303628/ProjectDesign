@@ -6,11 +6,12 @@ public class FunctionBoard extends Board {
 
    private SessionTable sessionTable;
 
-   public FunctionBoard(){
+   public FunctionBoard() {
       sessionTable = new SessionTable();
 
    }
 
+   @Override
    public void displaySession() {
       // TODO Auto-generated method stub
       sessionTable.display();

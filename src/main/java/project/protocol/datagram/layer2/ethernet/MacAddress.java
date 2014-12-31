@@ -4,12 +4,16 @@ import project.help.Helper;
 
 public class MacAddress {
    /*
-    * The detailed information for the MacAddress, it's 48 bits 
+    * The detailed information for the MacAddress, it's 48 bits
     */
    private String addr;
 
    public MacAddress() {
-      this.setAddr("000000000000");
+      this("000000000000");
+   }
+
+   public MacAddress(String addr) {
+      this.addr = addr;
    }
 
    public static MacAddress makeBraodcastMacAddress() {
@@ -20,7 +24,7 @@ public class MacAddress {
 
    /**
     * Generate a random mac address
-    * 
+    *
     * @return
     */
    public static MacAddress makeMacAddress() {
@@ -45,7 +49,10 @@ public class MacAddress {
       return this.addr.equals("ffffffffffff");
    }
 
-   public boolean equals(MacAddress obj) {
-      return this.addr.equals(obj.getAddr());
+   public boolean equals(Object obj) {
+      if (obj == null) {
+         return false;
+      }
+      return addr.equals(((MacAddress) obj).getAddr());
    }
 }

@@ -17,6 +17,7 @@ public class ArpTest {
    @Test
    public void testToString() {
       Arp a = Arp.makeArpRequest();
-      Assert.assertEquals(a.toString(), "0001080006040001ffffffffffffc0a80101000000000000c0a80101");
+      Assert.assertEquals(a.toString(),
+            "0001080006040001ffffffffffffc0a80101000000000000c0a80101");
    }
 }

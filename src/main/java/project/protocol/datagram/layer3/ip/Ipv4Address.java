@@ -12,6 +12,10 @@ public class Ipv4Address {
 
    private String ip;
 
+   public Ipv4Address(String ip) {
+      this.ip = ip;
+   }
+
    public Ipv4Address() {
       this.ip = "c0a80101";
    }
@@ -52,8 +56,11 @@ public class Ipv4Address {
       this.setIp(result);
    }
 
-   public boolean equals(Ipv4Address obj) {
-      return this.ip.equals(obj.getIp());
+   public boolean equals(Object obj) {
+      if (obj == null) {
+         return false;
+      }
+      return ip.equals(((Ipv4Address) obj).getIp());
    }
 
    public String toString() {

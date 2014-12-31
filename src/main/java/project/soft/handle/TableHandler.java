@@ -6,13 +6,13 @@ package project.soft.handle;
 
 
 public abstract interface TableHandler<T> {
-    public void insertItem(T item);
+   public void insertItem(T item);
 
-    public void display();
+   public void display();
 
-    public void deleteItem(T item);
+   public void deleteItem(T item);
 
-    public void updateItem(T item);
+   public void updateItem(T item);
 
-    public T getItem(T item);
+   public T getItem(T item);
 }

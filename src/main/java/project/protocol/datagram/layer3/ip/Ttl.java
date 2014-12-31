@@ -10,6 +10,10 @@ public class Ttl {
 
    private String ttl;
 
+   public Ttl(String ttl) {
+      this.ttl = ttl;
+   }
+
    public Ttl() {
       this.ttl = "ff";
    }

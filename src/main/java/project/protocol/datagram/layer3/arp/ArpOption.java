@@ -1,5 +1,6 @@
 package project.protocol.datagram.layer3.arp;
 
+
 public class ArpOption {
    /*
     * Arp's unique part 
@@ -10,20 +11,29 @@ public class ArpOption {
 
    private String arpOption;
 
-   public void arpRequest() {
-      this.arpOption = "0001";
+   public ArpOption(String arpOption) {
+      this.arpOption = arpOption;
    }
 
-   public void arpResponse() {
-      this.arpOption = "0002";
+   public ArpOption() {
+   }
+
+   public static ArpOption makeArpRequestOption() {
+      ArpOption a = new ArpOption("0001");
+      return a;
+   }
+
+   public static ArpOption makeArpResponseOption() {
+      ArpOption a = new ArpOption("0002");
+      return a;
    }
 
    public boolean isArpRequest() {
-      return this.arpOption == "0001";
+      return this.arpOption.equals("0001");
    }
 
    public boolean isArpResponse() {
-      return this.arpOption == "0002";
+      return this.arpOption.equals("0002");
    }
 
    public String toString() {

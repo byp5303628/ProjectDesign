@@ -3,8 +3,12 @@ package project.protocol.datagram.layer3.ip;
 public class TypeLength {
    private String typeLength;
 
+   public TypeLength(String typeLength) {
+      this.typeLength = typeLength;
+   }
+
    public TypeLength() {
-      this.typeLength = "45";
+      this("45");
    }
 
    public String getTypeLength() {

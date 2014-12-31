@@ -6,6 +6,10 @@ public class Checksum {
     */
    private String checksum;
 
+   public Checksum(String checksum) {
+      this.checksum = checksum;
+   }
+
    public Checksum() {
       this.checksum = "0000";
    }

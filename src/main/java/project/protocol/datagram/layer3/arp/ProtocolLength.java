@@ -7,6 +7,10 @@ public class ProtocolLength {
     */
    private String protocolLength;
 
+   public ProtocolLength(String protocolLength) {
+      this.protocolLength = protocolLength;
+   }
+
    public ProtocolLength() {
       this.setProtocolLength("04");
    }

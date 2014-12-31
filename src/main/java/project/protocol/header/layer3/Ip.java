@@ -1,14 +1,6 @@
 package project.protocol.header.layer3;
 
-import project.protocol.datagram.layer3.ip.Checksum;
-import project.protocol.datagram.layer3.ip.FlagFragment;
-import project.protocol.datagram.layer3.ip.Identification;
-import project.protocol.datagram.layer3.ip.InternetType;
-import project.protocol.datagram.layer3.ip.Ipv4Address;
-import project.protocol.datagram.layer3.ip.Tos;
-import project.protocol.datagram.layer3.ip.TotalLength;
-import project.protocol.datagram.layer3.ip.Ttl;
-import project.protocol.datagram.layer3.ip.TypeLength;
+import project.protocol.datagram.layer3.ip.*;
 
 public class Ip extends Layer3 {
    private TypeLength typeLength;
@@ -25,14 +17,14 @@ public class Ip extends Layer3 {
    public Ip() {
       this.typeLength = new TypeLength();
       this.tos = new Tos();
-      this.checksum = new Checksum();
-      this.destAddr = new Ipv4Address();
-      this.srcAddr = new Ipv4Address();
-      this.flagFragment = new FlagFragment();
-      this.setInternetType(new InternetType());
-      this.identification = new Identification();
-      this.ttl = new Ttl();
       this.totalLength = new TotalLength();
+      this.identification = new Identification();
+      this.flagFragment = new FlagFragment();
+      this.ttl = new Ttl();
+      this.internetType = new InternetType();
+      this.checksum = new Checksum();
+      this.srcAddr = new Ipv4Address();
+      this.destAddr = new Ipv4Address();
    }
 
    public String toString() {

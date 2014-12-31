@@ -13,6 +13,10 @@ public class TotalLength {
       this.totalLength = "0014";
    }
 
+   public TotalLength(String totalLength) {
+      this.totalLength = totalLength;
+   }
+
    public int getTotalLength() {
       return Integer.parseInt(this.totalLength, 16);
    }
