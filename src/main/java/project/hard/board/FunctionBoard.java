@@ -8,7 +8,7 @@ public class FunctionBoard extends Board {
 
    public FunctionBoard() {
       sessionTable = new SessionTable();
-
+      this.setType("Function Board");
    }
 
    @Override

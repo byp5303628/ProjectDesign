@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import project.exceptions.InterfaceNotExistException;
 import project.hard.interf.InterfaceInfo;
+import project.hard.interf.RouteInterfaceInfo;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
@@ -38,7 +39,7 @@ public class InterfaceBoard extends Board implements PacketHandler {
    public InterfaceBoard(int size) {
       this.interfaceList = new ArrayList<InterfaceInfo>();
       for (int i = 0; i < size; i++) {
-         InterfaceInfo inter = new InterfaceInfo();
+         InterfaceInfo inter = new RouteInterfaceInfo();
          String name = "G" + this.getSlot() + "/0/" + i;
          inter.setName(name);
          inter.setBoard(this);

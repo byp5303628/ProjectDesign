@@ -1,18 +1,61 @@
 package project.hard.interf;
 
+import project.exceptions.InvalidPointStringException;
 import project.hard.board.InterfaceBoard;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
+import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer3.Arp;
 import project.soft.handle.PacketHandler;
 
-public class InterfaceInfo implements PacketHandler {
+public abstract class InterfaceInfo implements PacketHandler {
+
+   private MacAddress macAddress;
+   private String name;
+   private String description;
+   private Mode mode;
+   private InterfaceInfo linkedTo;
+   private InterfaceBoard board;
+   private String status;
+   private Ipv4Address ipv4Address;
+
+   static public enum Mode {
+      Bridge, Route
+   }
+
    /**
-    * Handle input packet, forward it with other module or drop it.
-    *
-    * @param packet
+    * Used for user control, user could set it up and down to control its status
     */
+   private String upDown;
+
+   public Ipv4Address getIpv4Address() {
+      return ipv4Address;
+   }
+
+   /**
+    * Set the ipv4 address of this interface, at the same time update the
+    * routing table for direct type routing item
+    *
+    * @param pointString
+    *           , which is the point string like 192.168.1.1
+    * @param mask
+    *           , which is the mask of the ip address
+    * @throws project.exceptions.InvalidPointStringException
+    */
+   public void setIpv4Address(String pointString, int mask)
+         throws InvalidPointStringException {
+      if (mode.equals(Mode.Bridge)) {
+         return;
+      }
+      this.ipv4Address.setPointString(pointString);
+   }
+
+   public void setIpv4Address(Ipv4Address ipv4Address) {
+      this.ipv4Address = ipv4Address;
+   }
+
+
    @Override
    public void handleIn(Packet packet) {
       if (packet.isBroadcast()) {
@@ -24,11 +67,17 @@ public class InterfaceInfo implements PacketHandler {
             // it's a invalid packet, drop it.
             return;
          }
-      } else if (packet.getDestMac().equals(this.getAddr())) {
+      } else if (packet.getDestMac().equals(this.getMacAddress())) {
          // This is the destination, send response
          switch (packet.getLayer3()) {
          case ARP:
             // update the arp table and return.
+            if (!isValidArpResponsePacket(packet)) {
+               return;
+            }
+            if (ipv4Address == null) {
+               return;
+            }
             this.getBoard().getMachineFrame().updateArpTable(packet);
             return;
          case IP:
@@ -51,51 +100,72 @@ public class InterfaceInfo implements PacketHandler {
 
    }
 
-   static public enum Mode {
-      Bridge, Route
+   /**
+    * Create a packet which is an arp request, includes L2 for ethernet
+    *
+    * @param target
+    *           , which is the dest ip we want to get its mac address
+    * @return
+    */
+   public Packet sendArpRequest(Ipv4Address target) {
+      Packet p = new Packet();
+      Ethernet e = Ethernet.makeArpEthernet();
+      e.setSrcMac(this.getMacAddress());
+      p.setL2(e);
+      Arp arp = Arp.makeArpRequest();
+      arp.setSendIp(this.ipv4Address);
+      arp.setRecvIp(target);
+      p.setL3(arp);
+      return p;
    }
 
-   private MacAddress addr;
-   private String name;
-   private String description;
-   private Mode mode;
-   private InterfaceInfo linkedTo;
-   private InterfaceBoard board;
-   private String status;
    /**
-    * Used for user control, user could set it up and down to control its status
+    * If this ip address is destination
+    *
+    * @param ip
+    *           , which is the ip you want to check
+    * @return
     */
-   private String updown;
-
-   /**
-    * Process packet
-    */
-   public void processPacket(Packet packet) {
-
+   public boolean isIpEqual(Ipv4Address ip) {
+      return this.ipv4Address.equals(ip);
    }
 
    private void sendArpResponse(Packet packet) {
       Packet p = new Packet();
       Ethernet e = Ethernet.makeArpEthernet();
-      e.setSrcMac(addr);
+      e.setSrcMac(this.getMacAddress());
       e.setDestMac(packet.getSrcMac());
       p.setL2(e);
 
       Arp arp = Arp.makeArpResponse();
       arp.setSendIp(((Arp) packet.getL3()).getRecvIp());
       arp.setRecvIp(((Arp) packet.getL3()).getSendIp());
-      arp.setSendMac(addr);
+      arp.setSendMac(this.getMacAddress());
       arp.setRecvMac(packet.getSrcMac());
       p.setL3(arp);
-      linkedTo.handleIn(p);
+      this.getLinkedTo().handleIn(p);
    }
 
-   public MacAddress getAddr() {
-      return addr;
+   private boolean isValidArpResponsePacket(Packet packet) {
+      Arp arp = (Arp) packet.getL3();
+      if (!arp.getSendMac().equals(this.getMacAddress())) {
+         return false;
+      }
+      if (!arp.getRecvIp().equals(ipv4Address)) {
+         return false;
+      }
+      if (!arp.getRecvMac().equals(MacAddress.makeBraodcastMacAddress())) {
+         return false;
+      }
+      return true;
    }
 
-   public void setAddr(MacAddress addr) {
-      this.addr = addr;
+   public MacAddress getMacAddress() {
+      return macAddress;
+   }
+
+   public void setMacAddress(MacAddress macAddress) {
+      this.macAddress = macAddress;
    }
 
    public String getDescription() {
@@ -138,12 +208,12 @@ public class InterfaceInfo implements PacketHandler {
       this.status = status;
    }
 
-   public String getUpdown() {
-      return updown;
+   public String getUpDown() {
+      return upDown;
    }
 
-   public void setUpdown(String updown) {
-      this.updown = updown;
+   public void setUpDown(String upDown) {
+      this.upDown = upDown;
    }
 
    public InterfaceBoard getBoard() {

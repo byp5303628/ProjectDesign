@@ -34,8 +34,17 @@ public class ArpItem {
          return false;
       if (!ip.equals(((ArpItem) o).getIp()))
          return false;
-      if (mac.equals(((ArpItem) o).getMac()))
+      if (!mac.equals(((ArpItem) o).getMac()))
          return false;
       return true;
+   }
+
+   public String toString() {
+      StringBuffer sb = new StringBuffer("");
+      sb.append(ip.getPointString());
+      sb.append("    ");
+      sb.append(mac.toString());
+      sb.append("    ");
+      return sb.toString();
    }
 }

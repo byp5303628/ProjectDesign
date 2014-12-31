@@ -5,24 +5,19 @@ import java.util.ArrayList;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
-import project.soft.handle.PacketForwarder;
+import project.protocol.header.layer3.Arp;
 import project.soft.handle.TableHandler;
 
 /**
  * Created by ypbai on 2014/12/25.
  */
-public class ArpTable implements PacketForwarder, TableHandler<ArpItem> {
+public class ArpTable implements TableHandler<ArpItem> {
    private ArrayList<ArpItem> arpList;
 
    public ArpTable() {
       this.arpList = new ArrayList<ArpItem>();
    }
 
-
-   @Override
-   public void forward(Packet packet) {
-      return;
-   }
 
    public void insertMacToArp(Ipv4Address ip, MacAddress mac) {
       ArpItem ai = new ArpItem();
@@ -41,7 +36,10 @@ public class ArpTable implements PacketForwarder, TableHandler<ArpItem> {
 
    @Override
    public void display() {
-
+      System.out.println("---- ARP Table ----");
+      for (ArpItem ai : arpList) {
+         System.out.println(ai.toString());
+      }
    }
 
    @Override
@@ -60,6 +58,7 @@ public class ArpTable implements PacketForwarder, TableHandler<ArpItem> {
          }
          index++;
       }
+      insertItem(item);
    }
 
    @Override
@@ -70,7 +69,34 @@ public class ArpTable implements PacketForwarder, TableHandler<ArpItem> {
       return item;
    }
 
+   /**
+    * When receive a arp response, update the arp table.
+    * 
+    * @param packet
+    */
    public void updateArpTable(Packet packet) {
+      // do packet arp check
+      Arp arp = (Arp) packet.getL3();
+      ArpItem ai = new ArpItem();
+      ai.setIp(arp.getSendIp());
+      ai.setMac(arp.getSendMac());
+      updateItem(ai);
+   }
 
+   /**
+    * Query mac address from arp table, if find, return macaddress, else return
+    * null
+    * 
+    * @param ipv4Address
+    * @return
+    */
+   public MacAddress queryMacAddress(Ipv4Address ipv4Address) {
+      for (ArpItem ai : arpList) {
+         if (ai.getIp().equals(ipv4Address)) {
+            return ai.getMac();
+         }
+      }
+
+      return null;
    }
 }

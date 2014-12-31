@@ -110,6 +110,30 @@ public class Packet {
       return ((Ethernet) l2).getSrcMac();
    }
 
+   /**
+    * Get the packet's Src ip address
+    * 
+    * @return
+    */
+   public Ipv4Address getSrcIp() {
+      if (getLayer3().equals(Layer3Protocol.IP)) {
+         return ((Ip) l3).getSrcAddr();
+      }
+      return null;
+   }
+
+   /**
+    * Get the packet's Dest ip address.
+    * 
+    * @return
+    */
+   public Ipv4Address getDestIp() {
+      if (getLayer3().equals(Layer3Protocol.IP)) {
+         return ((Ip) l3).getDestAddr();
+      }
+      return null;
+   }
+
    public Layer3 getL3() {
       return l3;
    }
