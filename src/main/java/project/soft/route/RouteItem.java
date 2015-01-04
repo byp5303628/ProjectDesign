@@ -8,7 +8,16 @@ public class RouteItem implements Comparable<RouteItem> {
    private int mask;
    private Ipv4Address nextHop;
    private InterfaceInfo outputInterface;
-   private String type;
+
+   public ROUTE_TYPE getType() {
+      return type;
+   }
+
+   public void setType(ROUTE_TYPE type) {
+      this.type = type;
+   }
+
+   private ROUTE_TYPE type;
 
    public RouteItem() {
    }
@@ -39,8 +48,9 @@ public class RouteItem implements Comparable<RouteItem> {
    public boolean equals(Object obj) {
       if (obj == null)
          return false;
-      return this.target.equals(((RouteItem) obj).getTarget())
-            && this.mask == ((RouteItem) obj).getMask();
+      return target.equals(((RouteItem) obj).getTarget())
+            && mask == ((RouteItem) obj).getMask()
+            && type.equals(((RouteItem) obj).getType());
    }
 
    public Ipv4Address getTarget() {
@@ -67,14 +77,6 @@ public class RouteItem implements Comparable<RouteItem> {
       this.mask = mask;
    }
 
-   public String getType() {
-      return type;
-   }
-
-   public void setType(String type) {
-      this.type = type;
-   }
-
    public String toString() {
       StringBuffer result = new StringBuffer(this.target.getPointString());
       result.append("  ");
@@ -88,6 +90,13 @@ public class RouteItem implements Comparable<RouteItem> {
       return result.toString();
    }
 
+   /**
+    * Which is used to help collection run the sort function.
+    * 
+    * @param o
+    *           , which is the other route item compared to.
+    * @return
+    */
    public int compareTo(RouteItem o) {
       // TODO Auto-generated method stub
       //int m = 8 - this.mask;
@@ -101,6 +110,7 @@ public class RouteItem implements Comparable<RouteItem> {
    }
 
    public void setNextHop(Ipv4Address nextHop) {
+      // first check out the route table
       this.nextHop = nextHop;
    }
 }

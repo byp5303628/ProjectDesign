@@ -8,6 +8,8 @@ import project.protocol.header.Packet;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer3.Arp;
 import project.soft.handle.PacketHandler;
+import project.soft.route.ROUTE_TYPE;
+import project.soft.route.RouteItem;
 
 public abstract class InterfaceInfo implements PacketHandler {
 
@@ -48,7 +50,17 @@ public abstract class InterfaceInfo implements PacketHandler {
       if (mode.equals(Mode.Bridge)) {
          return;
       }
-      this.ipv4Address.setPointString(pointString);
+      // create a direct route item
+      RouteItem ri = new RouteItem();
+      ri.setType(ROUTE_TYPE.DIRECT);
+      ri.setMask(mask);
+
+      ipv4Address = new Ipv4Address();
+      ipv4Address.setPointString(pointString);
+
+      ri.setTarget(ipv4Address);
+      ri.setOutputInterface(this);
+      board.getMachineFrame().getRouteTable().updateItem(ri);
    }
 
    public void setIpv4Address(Ipv4Address ipv4Address) {

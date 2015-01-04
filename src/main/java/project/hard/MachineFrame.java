@@ -7,7 +7,6 @@ import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 import project.protocol.header.Packet;
-import project.soft.arp.ArpTable;
 import project.soft.mac.MacTable;
 import project.soft.route.RouteTable;
 
@@ -19,6 +18,10 @@ public class MachineFrame {
     */
    private int slotNumber;
    private ArrayList<Board> boardList;
+
+   public RouteTable getRouteTable() {
+      return routeTable;
+   }
 
    /**
     * Need to add access from the interfaceInfo, such as insert, query, delete

@@ -1,7 +1,7 @@
 package project.protocol.datagram.layer2.ethernet;
 
 
-import project.protocol.header.layer3.Layer3Protocol;
+import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 
 public class FrameType {
    /*
@@ -46,13 +46,13 @@ public class FrameType {
       return this.frameType;
    }
 
-   public Layer3Protocol getNextProtocol() {
+   public LAYER_3_PROTOCOL getNextProtocol() {
       if (frameType.equals("0806")) {
-         return Layer3Protocol.ARP;
+         return LAYER_3_PROTOCOL.ARP;
       } else if (frameType.equals("0800")) {
-         return Layer3Protocol.IP;
+         return LAYER_3_PROTOCOL.IP;
       } else {
-         return Layer3Protocol.INVALID_PROTOCOL;
+         return LAYER_3_PROTOCOL.INVALID_PROTOCOL;
       }
    }
 }

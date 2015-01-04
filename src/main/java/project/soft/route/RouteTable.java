@@ -21,7 +21,7 @@ public class RouteTable implements TableHandler<RouteItem>, PacketForwarder {
       this.arpTable = new ArpTable();
    }
 
-   public void insertRouteItem(Ipv4Address target, int mask, String type,
+   public void insertRouteItem(Ipv4Address target, int mask, ROUTE_TYPE type,
          InterfaceInfo inter) {
       RouteItem e = new RouteItem();
       e.setMask(mask);
@@ -147,12 +147,25 @@ public class RouteTable implements TableHandler<RouteItem>, PacketForwarder {
       routeList.remove(item);
    }
 
+   /**
+    * Update the route table, if the item you want to update is already exists
+    * and it is a direct route item, do nothing, else update the route table.
+    * 
+    * @param item
+    */
    @Override
    public void updateItem(RouteItem item) {
       int index = 0;
       for (RouteItem ri : routeList) {
+         // only target and mask make only one route item
          if (item.getTarget().equals(ri.getTarget())
-               && item.getNextHop().equals(ri.getNextHop())) {
+               && (item.getMask() == ri.getMask())) {
+            // if update a existing, if it's type is direct, do nothing
+            if (ri.getType().equals(ROUTE_TYPE.DIRECT)) {
+               return;
+            }
+
+            // else update the route table
             routeList.remove(index);
             routeList.add(index, item);
             return;

@@ -18,7 +18,7 @@ public class RouteTableTest {
       Ipv4Address target = new Ipv4Address();
       target.setPointString("1.1.1.1");
       int mask = 24;
-      String type = "static";
+      ROUTE_TYPE type = ROUTE_TYPE.STATIC;
       rt.insertRouteItem(target, mask, type, inter);
 
       Ipv4Address tar1 = new Ipv4Address();

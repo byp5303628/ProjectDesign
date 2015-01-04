@@ -10,7 +10,7 @@ import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer3.Arp;
-import project.protocol.header.layer3.Layer3Protocol;
+import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 
 
 public class RouteInterfaceInfoTest {
@@ -47,7 +47,7 @@ public class RouteInterfaceInfoTest {
    public void testSendArpRequest() {
       RouteInterfaceInfo r = new RouteInterfaceInfo();
       Packet p = r.sendArpRequest(new Ipv4Address());
-      Assert.assertEquals(p.getLayer3(), Layer3Protocol.ARP);
+      Assert.assertEquals(p.getLayer3(), LAYER_3_PROTOCOL.ARP);
       Arp a = (Arp) p.getL3();
       Assert.assertTrue(a.isRequest());
    }

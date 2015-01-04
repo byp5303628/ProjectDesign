@@ -9,7 +9,7 @@ import project.protocol.header.layer2.Layer2;
 import project.protocol.header.layer3.Arp;
 import project.protocol.header.layer3.Ip;
 import project.protocol.header.layer3.Layer3;
-import project.protocol.header.layer3.Layer3Protocol;
+import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 import project.protocol.header.layer4.Layer4;
 
 public class Packet {
@@ -68,7 +68,7 @@ public class Packet {
     * @return
     */
    public boolean isArpRequest() {
-      if ((getLayer3().equals(Layer3Protocol.ARP) && ((Arp) l3).isRequest()))
+      if ((getLayer3().equals(LAYER_3_PROTOCOL.ARP) && ((Arp) l3).isRequest()))
          return true;
       else
          return false;
@@ -79,7 +79,7 @@ public class Packet {
     *
     * @return
     */
-   public Layer3Protocol getLayer3() {
+   public LAYER_3_PROTOCOL getLayer3() {
       return l2.getNextProtocol();
    }
 
@@ -116,7 +116,7 @@ public class Packet {
     * @return
     */
    public Ipv4Address getSrcIp() {
-      if (getLayer3().equals(Layer3Protocol.IP)) {
+      if (getLayer3().equals(LAYER_3_PROTOCOL.IP)) {
          return ((Ip) l3).getSrcAddr();
       }
       return null;
@@ -128,7 +128,7 @@ public class Packet {
     * @return
     */
    public Ipv4Address getDestIp() {
-      if (getLayer3().equals(Layer3Protocol.IP)) {
+      if (getLayer3().equals(LAYER_3_PROTOCOL.IP)) {
          return ((Ip) l3).getDestAddr();
       }
       return null;

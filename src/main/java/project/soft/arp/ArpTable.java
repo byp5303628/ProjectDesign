@@ -34,6 +34,9 @@ public class ArpTable implements TableHandler<ArpItem> {
       }
    }
 
+   /**
+    * Display the entire arp table
+    */
    @Override
    public void display() {
       System.out.println("---- ARP Table ----");

@@ -26,7 +26,6 @@ public class RouteItemTest {
       Ipv4Address target = new Ipv4Address();
       ip.setPointString("192.168.1.1");
       target.setPointString("192.168.2.2");
-      ;
       ri.setTarget(target);
       Assert.assertFalse(ri.match(ip));
    }
