@@ -50,6 +50,14 @@ public class InterfaceBoard extends Board implements PacketHandler {
          throw new InterfaceNotExistException(index);
    }
 
+   public void setInterface(int index, InterfaceInfo interfaceInfo) {
+      if (0 <= index && index < this.interfaceList.size()) {
+         interfaceList.remove(index);
+         interfaceList.add(index, interfaceInfo);
+      }
+      return;
+   }
+
    @Override
    public void handleIn(Packet packet) {
       // (TODO: Ethan)

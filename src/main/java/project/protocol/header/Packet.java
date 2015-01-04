@@ -8,8 +8,8 @@ import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer2.Layer2;
 import project.protocol.header.layer3.Arp;
 import project.protocol.header.layer3.Ip;
-import project.protocol.header.layer3.Layer3;
 import project.protocol.header.layer3.LAYER_3_PROTOCOL;
+import project.protocol.header.layer3.Layer3;
 import project.protocol.header.layer4.Layer4;
 
 public class Packet {
@@ -21,6 +21,12 @@ public class Packet {
    private static final int IP_SIZE = ETHERNET_SIZE + 40;
    private static final int ARP_SIZE = ETHERNET_SIZE + 56;
 
+   /**
+    * Construct a packet only with Hex string. Only support ip and arp packet.
+    * 
+    * @param s
+    * @return
+    */
    public static Packet makePacket(String s) {
       Packet packet = new Packet();
       Ethernet e = new Ethernet();
@@ -60,6 +66,18 @@ public class Packet {
       }
 
       return packet;
+   }
+
+   /**
+    * Check if this packet is a Ip packet. Mainly used in session table.
+    * 
+    * @return true if it is an ip packet, false if it's not
+    */
+   public boolean isIpPacket() {
+      if (getLayer3().equals(LAYER_3_PROTOCOL.IP)) {
+         return true;
+      }
+      return false;
    }
 
    /**

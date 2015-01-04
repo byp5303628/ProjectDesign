@@ -20,6 +20,7 @@ public class RouteItem implements Comparable<RouteItem> {
    private ROUTE_TYPE type;
 
    public RouteItem() {
+      this.type = ROUTE_TYPE.STATIC;
    }
 
    /**
