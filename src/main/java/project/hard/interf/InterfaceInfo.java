@@ -52,6 +52,9 @@ public abstract class InterfaceInfo implements PacketHandler {
    }
 
    public void setIpv4Address(Ipv4Address ipv4Address) {
+      if (mode.equals(Mode.Bridge)) {
+         return;
+      }
       this.ipv4Address = ipv4Address;
    }
 
@@ -97,7 +100,7 @@ public abstract class InterfaceInfo implements PacketHandler {
 
    @Override
    public void handleOut(Packet packet) {
-
+      this.getLinkedTo().handleIn(packet);
    }
 
    /**

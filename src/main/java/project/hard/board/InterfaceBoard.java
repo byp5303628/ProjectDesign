@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import project.exceptions.InterfaceNotExistException;
 import project.hard.interf.InterfaceInfo;
 import project.hard.interf.RouteInterfaceInfo;
-import project.protocol.datagram.layer2.ethernet.MacAddress;
-import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.soft.handle.PacketHandler;
 
@@ -16,18 +14,6 @@ public class InterfaceBoard extends Board implements PacketHandler {
    public InterfaceBoard() {
       // by default, give interface board 10 interfaces.
       this(10);
-   }
-
-   /**
-    * Query the mac address of a specific ip address, if it exists, return mac
-    * address, else, return null
-    *
-    * @param ip
-    *           , which is the ip we want to insert
-    * @return mac address
-    */
-   static public MacAddress getMacFromArp(Ipv4Address ip) {
-      return null;
    }
 
    /**

@@ -1,7 +1,6 @@
 package project.hard.board;
 
-import junit.framework.Assert;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -10,8 +9,9 @@ import org.testng.annotations.Test;
 public class MasterBoardTest {
    @Test
    public void testConstructor() {
-      FunctionBoard board = new FunctionBoard();
-      Assert.assertTrue(board.getType().equals("Function Board"));
+      MasterBoard board = new MasterBoard();
+      Assert.assertTrue(board.getType().equals("Master Board"));
       board.displaySession();
    }
+
 }

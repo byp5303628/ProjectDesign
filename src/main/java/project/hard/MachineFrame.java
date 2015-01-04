@@ -25,7 +25,6 @@ public class MachineFrame {
     * One Machine Frame has only one routeTable
     */
    private RouteTable routeTable;
-   private ArpTable arpTable;
 
    private MacTable macTable;
 
@@ -64,7 +63,7 @@ public class MachineFrame {
     * @param packet
     */
    public void updateArpTable(Packet packet) {
-      arpTable.updateArpTable(packet);
+      routeTable.updateArpTable(packet);
    }
 
    public MachineFrame() {
@@ -78,7 +77,6 @@ public class MachineFrame {
          this.boardList.add(null);
       }
       this.routeTable = new RouteTable();
-      this.arpTable = new ArpTable();
    }
 
    /**
@@ -151,14 +149,6 @@ public class MachineFrame {
 
    public void sessionBackup() {
       // (TODO: Ethan)
-   }
-
-   public ArpTable getArpTable() {
-      return arpTable;
-   }
-
-   public void setArpTable(ArpTable arpTable) {
-      this.arpTable = arpTable;
    }
 
    public void displayRouteTable() {

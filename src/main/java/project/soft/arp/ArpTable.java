@@ -84,7 +84,7 @@ public class ArpTable implements TableHandler<ArpItem> {
    }
 
    /**
-    * Query mac address from arp table, if find, return macaddress, else return
+    * Query mac address from arp table, if find, return mac address, else return
     * null
     * 
     * @param ipv4Address

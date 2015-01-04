@@ -17,7 +17,12 @@ public class EthernetTest {
    @Test
    public void testMakeArpEthernet() {
       Ethernet e = Ethernet.makeArpEthernet();
-      Assert.assertEquals(e.getDestMac(), MacAddress.makeBraodcastMacAddress());
       Assert.assertEquals(e.getNextProtocol(), Layer3Protocol.ARP);
+   }
+
+   @Test
+   public void testMakeIpEthernet() {
+      Ethernet e = Ethernet.makeIpEthernet();
+      Assert.assertEquals(e.getNextProtocol(), Layer3Protocol.IP);
    }
 }
