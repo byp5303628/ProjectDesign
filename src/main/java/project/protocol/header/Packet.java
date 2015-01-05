@@ -4,13 +4,16 @@ import project.protocol.datagram.layer2.ethernet.FrameType;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.arp.*;
 import project.protocol.datagram.layer3.ip.*;
+import project.protocol.datagram.layer4.Port;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer2.Layer2;
 import project.protocol.header.layer3.Arp;
 import project.protocol.header.layer3.Ip;
 import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 import project.protocol.header.layer3.Layer3;
+import project.protocol.header.layer4.LAYER_4_PROTOCOL;
 import project.protocol.header.layer4.Layer4;
+import project.protocol.header.layer4.Udp;
 
 public class Packet {
    private Layer2 l2;
@@ -20,6 +23,7 @@ public class Packet {
    private static final int ETHERNET_SIZE = 28;
    private static final int IP_SIZE = ETHERNET_SIZE + 40;
    private static final int ARP_SIZE = ETHERNET_SIZE + 56;
+   private static final int UDP_SIZE = IP_SIZE + 16;
 
    /**
     * Construct a packet only with Hex string. Only support ip and arp packet.
@@ -37,7 +41,8 @@ public class Packet {
       e.setSrcMac(src);
       e.setFrameType(ft);
       packet.setL2(e);
-      if (s.length() == IP_SIZE) {
+      if (e.getNextProtocol().equals(LAYER_3_PROTOCOL.IP)
+            && s.length() == IP_SIZE) {
          Ip ip = new Ip();
          ip.setTypeLength(new TypeLength(s.substring(28, 30)));
          ip.setTos(new Tos(s.substring(30, 32)));
@@ -51,7 +56,7 @@ public class Packet {
          ip.setDestAddr(new Ipv4Address(s.substring(60, 68)));
          packet.setL3(ip);
          return packet;
-      } else if (s.length() == ARP_SIZE) {
+      } else if (e.getNextProtocol().equals(LAYER_3_PROTOCOL.ARP)) {
          Arp arp = new Arp();
          arp.setHardwareType(new HardwareType(s.substring(28, 32)));
          arp.setProtocolType(new ProtocolType(s.substring(32, 36)));
@@ -63,6 +68,22 @@ public class Packet {
          arp.setRecvMac(new MacAddress(s.substring(64, 76)));
          arp.setRecvIp(new Ipv4Address(s.substring(76, 84)));
          packet.setL3(arp);
+      } else if (e.getNextProtocol().equals(LAYER_3_PROTOCOL.IP)
+            && s.length() == UDP_SIZE) {
+         Ip ip = new Ip();
+         ip.setTypeLength(new TypeLength(s.substring(28, 30)));
+         ip.setTos(new Tos(s.substring(30, 32)));
+         ip.setTotalLength(new TotalLength(s.substring(32, 36)));
+         ip.setIdentification(new Identification(s.substring(36, 40)));
+         ip.setFlagFragment(new FlagFragment(s.substring(40, 44)));
+         ip.setTtl(new Ttl(s.substring(44, 46)));
+         ip.setInternetType(new InternetType(s.substring(46, 48)));
+         ip.setChecksum(new Checksum(s.substring(48, 52)));
+         ip.setSrcAddr(new Ipv4Address(s.substring(52, 60)));
+         ip.setDestAddr(new Ipv4Address(s.substring(60, 68)));
+         packet.setL3(ip);
+         Udp udp = new Udp(s.substring(IP_SIZE, UDP_SIZE));
+         packet.setL4(udp);
       }
 
       return packet;
@@ -78,6 +99,42 @@ public class Packet {
          return true;
       }
       return false;
+   }
+
+   /**
+    * If this packet is a Ip packet, get the src port, else return null.
+    * 
+    * @return
+    */
+   public Port getSrcPort() {
+      if (isIpPacket()) {
+         return l4.getSrcPort();
+      }
+      return null;
+   }
+
+   /**
+    * If this packet is a Ip packet, get the dest port, else return null.
+    * 
+    * @return
+    */
+   public Port getDestPort() {
+      if (isIpPacket()) {
+         return l4.getDestPort();
+      }
+      return null;
+   }
+
+   /**
+    * If this packet is a Ip packet, get the layer4 protocol, else return null.
+    * 
+    * @return
+    */
+   public LAYER_4_PROTOCOL getLayer4Protocol() {
+      if (isIpPacket()) {
+         return ((Ip) l3).getInternetType().getNextProtocol();
+      }
+      return null;
    }
 
    /**
