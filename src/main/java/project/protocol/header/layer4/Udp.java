@@ -8,7 +8,7 @@ import project.protocol.datagram.layer4.udp.PacketLength;
 /**
  * Created by ypbai on 2015/1/5.
  */
-public class Udp extends Layer4 {
+public class Udp extends PortLayer {
    private PacketLength packetLength;
    private Checksum checksum;
 

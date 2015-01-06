@@ -25,4 +25,11 @@ public class Checksum {
    public String toString() {
       return this.checksum;
    }
+
+   public boolean equals(Object obj) {
+      if (obj == null) {
+         return false;
+      }
+      return checksum.equals(((Checksum) obj).getChecksum());
+   }
 }

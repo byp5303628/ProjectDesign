@@ -13,6 +13,7 @@ import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 import project.protocol.header.layer3.Layer3;
 import project.protocol.header.layer4.LAYER_4_PROTOCOL;
 import project.protocol.header.layer4.Layer4;
+import project.protocol.header.layer4.PortLayer;
 import project.protocol.header.layer4.Udp;
 
 public class Packet {
@@ -108,7 +109,7 @@ public class Packet {
     */
    public Port getSrcPort() {
       if (isIpPacket()) {
-         return l4.getSrcPort();
+         return ((PortLayer) l4).getSrcPort();
       }
       return null;
    }
@@ -120,7 +121,7 @@ public class Packet {
     */
    public Port getDestPort() {
       if (isIpPacket()) {
-         return l4.getDestPort();
+         return ((PortLayer) l4).getDestPort();
       }
       return null;
    }

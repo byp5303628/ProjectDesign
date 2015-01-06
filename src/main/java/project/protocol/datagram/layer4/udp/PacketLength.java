@@ -23,6 +23,12 @@ public class PacketLength {
       return Integer.parseInt(packetLength, 16);
    }
 
+   public boolean equals(Object obj) {
+      if (obj == null)
+         return false;
+      return getPacketLength() == ((PacketLength) obj).getPacketLength();
+   }
+
    public void setPacketLength(int packetLength)
          throws InvalidUdpPacketException {
       if (packetLength < 8 || packetLength > 65535) {
