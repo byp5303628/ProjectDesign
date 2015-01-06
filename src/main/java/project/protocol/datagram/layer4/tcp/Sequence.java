@@ -21,6 +21,12 @@ public class Sequence {
       return sequence;
    }
 
+   public boolean equals(Object object) {
+      if (object == null)
+         return false;
+      return sequence.equals(((Sequence) object).getSequence());
+   }
+
    public void setSequence(String sequence) {
       this.sequence = sequence;
    }

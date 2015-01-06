@@ -16,6 +16,11 @@ public class TcpInteractive {
       this.other = "000";
    }
 
+   public TcpInteractive(String s) {
+      this.offset = s.substring(0, 1);
+      this.other = s.substring(1, 4);
+   }
+
    public String getOffset() {
       return offset;
    }
@@ -34,7 +39,7 @@ public class TcpInteractive {
 
    public boolean isAck() {
       int otherNum = getOther();
-      if ((otherNum&ACK) == ACK) {
+      if ((otherNum & ACK) == ACK) {
          return true;
       }
       return false;
@@ -42,7 +47,7 @@ public class TcpInteractive {
 
    public boolean isRst() {
       int otherNum = getOther();
-      if ((otherNum&RST) == RST) {
+      if ((otherNum & RST) == RST) {
          return true;
       }
       return false;
@@ -50,7 +55,7 @@ public class TcpInteractive {
 
    public boolean isFin() {
       int otherNum = getOther();
-      if ((otherNum&FIN) == FIN) {
+      if ((otherNum & FIN) == FIN) {
          return true;
       }
       return false;
