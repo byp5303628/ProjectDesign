@@ -23,6 +23,11 @@ public class SessionItem {
    private LAYER_4_PROTOCOL outProtocol;
 
    private APPLICATION application;
+   private SessionStatus sessionStatus;
+
+   private SessionItem() {
+
+   }
 
    /**
     * According to the input packet, create a session item.
@@ -34,36 +39,56 @@ public class SessionItem {
       SessionItem result = new SessionItem();
       // set input info
       result.setInSrcIpv4Address(packet.getSrcIp());
-      result.setOutDestIpv4Address(packet.getDestIp());
+      result.setInDestIpv4Address(packet.getDestIp());
       result.setInSrcPort(packet.getSrcPort());
       result.setInDestPort(packet.getDestPort());
       result.setInProtocol(packet.getLayer4Protocol());
 
-      result.setInSrcIpv4Address(packet.getDestIp());
+      result.setOutSrcIpv4Address(packet.getDestIp());
       result.setOutDestIpv4Address(packet.getSrcIp());
-      result.setInSrcPort(packet.getDestPort());
-      result.setInDestPort(packet.getSrcPort());
-      result.setInProtocol(packet.getLayer4Protocol());
+      result.setOutSrcPort(packet.getDestPort());
+      result.setOutDestPort(packet.getSrcPort());
+      result.setOutProtocol(packet.getLayer4Protocol());
+
+      LAYER_4_PROTOCOL protocol = packet.getLayer4Protocol();
+      switch (protocol) {
+      case TCP:
+         result.setSessionStatus(SessionStatus.TCP_SYN_INIT);
+         break;
+      case UDP:
+         result.setSessionStatus(SessionStatus.UDP_OPEN);
+         break;
+      case RAW_IP:
+         result.setSessionStatus(SessionStatus.RAW_IP_OPEN);
+         break;
+      default:
+         result.setSessionStatus(null);
+      }
 
       result.setApplication();
 
       return result;
    }
 
-   private APPLICATION setApplication() {
+   private void setApplication() {
       if (inDestPort == null) {
-         return APPLICATION.UNKNOWN_APPLICATION;
+         this.application = APPLICATION.UNKNOWN_APPLICATION;
+         return;
       }
       int destPost = inDestPort.getPortNum();
       switch (destPost) {
       case 21:
-         return APPLICATION.FTP;
+         this.application = APPLICATION.FTP;
+         return;
       case 23:
-         return APPLICATION.TELNET;
+         this.application = APPLICATION.TELNET;
+         return;
       case 53:
-         return APPLICATION.DNS;
+         this.application = APPLICATION.DNS;
+         return;
       default:
-         return APPLICATION.UNKNOWN_APPLICATION;
+         this.application = APPLICATION.UNKNOWN_APPLICATION;
+         return;
       }
    }
 
@@ -109,6 +134,8 @@ public class SessionItem {
          return "UDP";
       case TCP:
          return "TCP";
+      case RAW_IP:
+         return "RAW_IP";
       default:
          return null;
       }
@@ -200,5 +227,13 @@ public class SessionItem {
 
    public void setInDestPort(Port inDestPort) {
       this.inDestPort = inDestPort;
+   }
+
+   public SessionStatus getSessionStatus() {
+      return sessionStatus;
+   }
+
+   public void setSessionStatus(SessionStatus sessionStatus) {
+      this.sessionStatus = sessionStatus;
    }
 }

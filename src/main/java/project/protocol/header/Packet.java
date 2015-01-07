@@ -55,11 +55,11 @@ public class Packet {
          packet.setL3(ip);
          if (s.length() == IP_SIZE) {
             return packet;
-         } else if(s.length() == UDP_SIZE) {
+         } else if (s.length() == UDP_SIZE) {
             Udp udp = new Udp(s.substring(IP_SIZE, UDP_SIZE));
             packet.setL4(udp);
             return packet;
-         } else if(s.length() == TCP_SIZE) {
+         } else if (s.length() == TCP_SIZE) {
             Tcp tcp = new Tcp(s.substring(IP_SIZE, TCP_SIZE));
             packet.setL4(tcp);
             return packet;
@@ -100,7 +100,7 @@ public class Packet {
     * @return
     */
    public Port getSrcPort() {
-      if (isIpPacket()) {
+      if (l4 != null && isIpPacket()) {
          return ((PortLayer) l4).getSrcPort();
       }
       return null;
@@ -112,7 +112,7 @@ public class Packet {
     * @return
     */
    public Port getDestPort() {
-      if (isIpPacket()) {
+      if (l4 != null && isIpPacket()) {
          return ((PortLayer) l4).getDestPort();
       }
       return null;

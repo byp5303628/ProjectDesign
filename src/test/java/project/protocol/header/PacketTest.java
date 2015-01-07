@@ -12,26 +12,16 @@ import project.protocol.header.layer4.Tcp;
  * Created by ypbai on 2014/12/31.
  */
 public class PacketTest {
-   private static final String ETHERNET_IP_PACKET =
-         "1524151526251524151526270800";
-   private static final String ETHERNET_ARP_PACKET =
-         "ffffffffffff1524151526250806";
-   private static final String UDP_IP_PACKET =
-         "4500001400000000ff110000c0a80101c0a80102";
-   private static final String TCP_IP_PACKET =
-         "4500001400000000ff060000c0a80101c0a80102";
-
-
    @Test
    public void testMakeArpPacket() {
       String arpRequestPacket =
-            ETHERNET_ARP_PACKET
+            PacketConstant.ETHERNET_ARP_PACKET
                   + "000108000604000115241515262501010101ffffffffffffffffffff";
       Assert.assertEquals(arpRequestPacket.length(), 84);
       Packet p = Packet.makePacket(arpRequestPacket);
       Assert.assertTrue(p.isArpRequest());
       String arpResponsePacket =
-            ETHERNET_ARP_PACKET
+            PacketConstant.ETHERNET_ARP_PACKET
                   + "000208000604000115241515262501010101ffffffffffffffffffff";
       p = Packet.makePacket(arpResponsePacket);
       Assert.assertTrue(p.isBroadcast());
@@ -40,7 +30,7 @@ public class PacketTest {
    @Test
    public void testMakeIpPacket() {
       String ipPacket =
-            ETHERNET_IP_PACKET + "4500001400000000ff010000c0a80101c0a80102";
+            PacketConstant.ETHERNET_IP_PACKET + "4500001400000000ff010000c0a80101c0a80102";
       Assert.assertEquals(ipPacket.length(), 68);
       Packet p = Packet.makePacket(ipPacket);
       Assert.assertEquals(p.isArpRequest(), false);
@@ -50,11 +40,11 @@ public class PacketTest {
 
    @Test
    public void testIsIpPacket() {
-      String ipPacket = ETHERNET_IP_PACKET + UDP_IP_PACKET;
+      String ipPacket = PacketConstant.ETHERNET_IP_PACKET + PacketConstant.UDP_IP_PACKET;
       Packet p = Packet.makePacket(ipPacket);
       Assert.assertEquals(p.isIpPacket(), true);
       String arpRequestPacket =
-            ETHERNET_ARP_PACKET
+            PacketConstant.ETHERNET_ARP_PACKET
                   + "000108000604000115241515262501010101ffffffffffffffffffff";
       p = Packet.makePacket(arpRequestPacket);
       Assert.assertEquals(p.isIpPacket(), false);
@@ -63,7 +53,7 @@ public class PacketTest {
    @Test
    public void testUdpPacket() {
       String udpPacket =
-            ETHERNET_IP_PACKET + UDP_IP_PACKET + "0400040100800000";
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.UDP_IP_PACKET + "0400040100800000";
       Assert.assertEquals(udpPacket.length(), 84);
       Packet p = Packet.makePacket(udpPacket);
       Assert.assertTrue(p.isIpPacket());
@@ -75,8 +65,8 @@ public class PacketTest {
    @Test
    public void testTcpPacket() {
       String tcpPacket =
-            ETHERNET_IP_PACKET
-                  + TCP_IP_PACKET + "0400040100000000000000000000000000000000";
+            PacketConstant.ETHERNET_IP_PACKET
+                  + PacketConstant.TCP_IP_PACKET + "0400040100000000000000000000000000000000";
       Assert.assertEquals(tcpPacket.length(), 108);
       Packet packet = Packet.makePacket(tcpPacket);
 

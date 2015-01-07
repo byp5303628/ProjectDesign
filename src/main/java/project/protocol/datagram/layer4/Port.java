@@ -14,6 +14,15 @@ public class Port {
    }
 
    /**
+    * Init port number through number.
+    * 
+    * @param port
+    */
+   public Port(int port) {
+      setPort(port);
+   }
+
+   /**
     * Check if two port equals
     * 
     * @param obj
@@ -39,11 +48,14 @@ public class Port {
    }
 
    public void setPort(String port) {
+      while (port.length() < 4) {
+         port = "0" + port;
+      }
       this.port = port;
    }
 
    public void setPort(int port) {
-      this.port = Integer.toHexString(port);
+      setPort(Integer.toHexString(port));
    }
 
    /**
