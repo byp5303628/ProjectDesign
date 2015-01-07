@@ -10,6 +10,8 @@ import project.protocol.header.layer4.APPLICATION;
 import project.protocol.header.layer4.LAYER_4_PROTOCOL;
 import project.protocol.header.layer4.Udp;
 
+import java.util.HashMap;
+
 /**
  * Created by ypbai on 2015/1/7.
  */
@@ -66,18 +68,7 @@ public class SessionItemTest {
       Packet packet = Packet.makePacket(rawIpPacket);
       SessionItem si = SessionItem.createSessionItem(packet);
 
-      Assert.assertEquals(si.getApplication(), APPLICATION.UNKNOWN_APPLICATION);
-      Assert.assertEquals(si.getInProtocol(), LAYER_4_PROTOCOL.RAW_IP);
-      Assert.assertEquals(si.getOutProtocol(), LAYER_4_PROTOCOL.RAW_IP);
-      Assert.assertEquals(si.getOutSrcIpv4Address(), packet.getDestIp());
-      Assert.assertEquals(si.getOutDestIpv4Address(), packet.getSrcIp());
-      Assert.assertEquals(si.getOutDestPort(), packet.getSrcPort());
-      Assert.assertEquals(si.getOutSrcPort(), packet.getDestPort());
-      Assert.assertEquals(si.getInSrcIpv4Address(), packet.getSrcIp());
-      Assert.assertEquals(si.getInDestIpv4Address(), packet.getDestIp());
-      Assert.assertEquals(si.getInSrcPort(), packet.getSrcPort());
-      Assert.assertEquals(si.getInDestPort(), packet.getDestPort());
-      Assert.assertEquals(si.getSessionStatus(), SessionStatus.RAW_IP_OPEN);
+      Assert.assertNull(si);
    }
 
    @Test
@@ -102,8 +93,12 @@ public class SessionItemTest {
    }
 
    @Test
-   public void testConstructor5() {
-      String rawIpPacket = PacketConstant.ETHERNET_IP_PACKET + PacketConstant.RAW_IP_PACKET;
-
+   public void testToString() {
+      String udpPacket =
+              PacketConstant.ETHERNET_IP_PACKET
+                      + PacketConstant.UDP_IP_PACKET + PacketConstant.UDP_HEADER;
+      Packet packet = Packet.makePacket(udpPacket);
+      SessionItem si = SessionItem.createSessionItem(packet);
+      System.out.println(si.toString());
    }
 }

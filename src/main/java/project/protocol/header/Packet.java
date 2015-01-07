@@ -124,7 +124,7 @@ public class Packet {
     * @return
     */
    public LAYER_4_PROTOCOL getLayer4Protocol() {
-      if (isIpPacket()) {
+      if (l3 != null && isIpPacket()) {
          return ((Ip) l3).getInternetType().getNextProtocol();
       }
       return null;

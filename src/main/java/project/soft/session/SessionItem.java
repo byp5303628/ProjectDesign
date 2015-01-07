@@ -36,6 +36,11 @@ public class SessionItem {
     * @return
     */
    public static SessionItem createSessionItem(Packet packet) {
+      if (packet.getL4() == null) {
+         // If packet has no layer 4, do not create session item.
+         return null;
+      }
+
       SessionItem result = new SessionItem();
       // set input info
       result.setInSrcIpv4Address(packet.getSrcIp());
@@ -61,12 +66,8 @@ public class SessionItem {
       case RAW_IP:
          result.setSessionStatus(SessionStatus.RAW_IP_OPEN);
          break;
-      default:
-         result.setSessionStatus(null);
       }
-
       result.setApplication();
-
       return result;
    }
 
@@ -100,45 +101,46 @@ public class SessionItem {
    public String toString() {
       StringBuffer sb = new StringBuffer("");
       sb.append("In Source Ip Address: ");
-      sb.append(inSrcIpv4Address.toString());
+      sb.append(inSrcIpv4Address.getPointString());
       sb.append("  ");
       if (inSrcPort != null)
          sb.append(inSrcPort.toString());
+      sb.append("\n");
 
       sb.append("In Destination Ip Address: ");
-      sb.append(inDestIpv4Address.toString());
+      sb.append(inDestIpv4Address.getPointString());
       sb.append("  ");
       if (inDestPort != null)
          sb.append(inDestPort.toString());
-      sb.append(getStringFromProtocol(inProtocol));
+      sb.append("\n");
+      sb.append("Packet In Protocol: ");
+      sb.append(inProtocol.toString());
+      sb.append("\n");
 
       sb.append("Out Source Ip Address: ");
-      sb.append(outSrcIpv4Address.toString());
+      sb.append(outSrcIpv4Address.getPointString());
       sb.append("  ");
       if (outSrcPort != null)
          sb.append(outSrcPort.toString());
+      sb.append("\n");
 
       sb.append("Out Destination Ip Address: ");
-      sb.append(outDestIpv4Address.toString());
+      sb.append(outDestIpv4Address.getPointString());
       sb.append("  ");
       if (outDestPort != null)
          sb.append(outDestPort.toString());
-      sb.append(getStringFromProtocol(outProtocol));
+      sb.append("\n");
+      sb.append("Packet Out Protocol: ");
+      sb.append(outProtocol.toString());
+      sb.append("\n");
+      sb.append("Session State: ");
+      sb.append(sessionStatus.toString());
+      sb.append("\n");
+      sb.append("Application: ");
+      sb.append(application.toString());
+      sb.append("\n");
 
       return sb.toString();
-   }
-
-   private String getStringFromProtocol(LAYER_4_PROTOCOL protocol) {
-      switch (protocol) {
-      case UDP:
-         return "UDP";
-      case TCP:
-         return "TCP";
-      case RAW_IP:
-         return "RAW_IP";
-      default:
-         return null;
-      }
    }
 
    public LAYER_4_PROTOCOL getInProtocol() {
