@@ -93,9 +93,11 @@ public class SessionItemTest {
       Assert.assertEquals(si.getApplication(), APPLICATION.FTP);
       udp.setDestPort(new Port(23));
       packet.setL4(udp);
+      si = SessionItem.createSessionItem(packet);
       Assert.assertEquals(si.getApplication(), APPLICATION.TELNET);
       udp.setDestPort(new Port(53));
       packet.setL4(udp);
+      si = SessionItem.createSessionItem(packet);
       Assert.assertEquals(si.getApplication(), APPLICATION.DNS);
    }
 
