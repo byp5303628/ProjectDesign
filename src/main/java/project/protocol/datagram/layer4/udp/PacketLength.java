@@ -23,10 +23,24 @@ public class PacketLength {
       return Integer.parseInt(packetLength, 16);
    }
 
-   public boolean equals(Object obj) {
-      if (obj == null)
+   @Override
+   public boolean equals(Object o) {
+      if (this == o)
+         return true;
+      if (!(o instanceof PacketLength))
          return false;
-      return getPacketLength() == ((PacketLength) obj).getPacketLength();
+
+      PacketLength that = (PacketLength) o;
+
+      if (!packetLength.equals(that.packetLength))
+         return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      return packetLength.hashCode();
    }
 
    public void setPacketLength(int packetLength)

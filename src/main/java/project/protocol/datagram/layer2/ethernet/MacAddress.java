@@ -42,17 +42,30 @@ public class MacAddress {
    }
 
    public void setAddr(String addr) {
-      this.addr = addr.toLowerCase();
+      this.addr = addr;
    }
 
    public boolean isBroadcast() {
       return this.addr.equals("ffffffffffff");
    }
 
-   public boolean equals(Object obj) {
-      if (obj == null) {
+   @Override
+   public boolean equals(Object o) {
+      if (this == o)
+         return true;
+      if (!(o instanceof MacAddress))
          return false;
-      }
-      return addr.equals(((MacAddress) obj).getAddr());
+
+      MacAddress that = (MacAddress) o;
+
+      if (!addr.equals(that.addr))
+         return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      return addr.hashCode();
    }
 }

@@ -38,6 +38,28 @@ public class RouteItem implements Comparable<RouteItem> {
       return ri.equals(de);
    }
 
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof RouteItem)) return false;
+
+      RouteItem routeItem = (RouteItem) o;
+
+      if (mask != routeItem.mask) return false;
+      if (!target.equals(routeItem.target)) return false;
+      if (type != routeItem.type) return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      int result = target.hashCode();
+      result = 31 * result + mask;
+      result = 31 * result + type.hashCode();
+      return result;
+   }
+
    /**
     * Compare two route item, check if they equals. Only compare the target ip
     * address, mask, next hop address.
@@ -45,14 +67,10 @@ public class RouteItem implements Comparable<RouteItem> {
     * @param obj
     * @return
     */
-   @Override
-   public boolean equals(Object obj) {
-      if (obj == null)
-         return false;
-      return target.equals(((RouteItem) obj).getTarget())
-            && mask == ((RouteItem) obj).getMask()
-            && type.equals(((RouteItem) obj).getType());
-   }
+
+
+
+
 
    public Ipv4Address getTarget() {
       return target;

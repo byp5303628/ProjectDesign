@@ -13,5 +13,19 @@ public interface SessionHandler {
     * @param packet
     * @return
     */
-   public boolean match(Packet packet);
+   public SessionItem match(Packet packet);
+
+   /**
+    * Update session table, if cannot find session item in session table, do
+    * ASPF check and create new item push it to the session table.
+    * 
+    * @param packet
+    *           , which is the input packet
+    */
+   public void updateSessionTable(Packet packet);
+
+   /**
+    * Display all the session item in the session table
+    */
+   public void display();
 }

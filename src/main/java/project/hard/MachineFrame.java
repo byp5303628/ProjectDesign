@@ -7,6 +7,7 @@ import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 import project.protocol.header.Packet;
+import project.soft.aspf.Aspf;
 import project.soft.mac.MacTable;
 import project.soft.route.RouteTable;
 
@@ -18,18 +19,29 @@ public class MachineFrame {
     */
    private int slotNumber;
    private ArrayList<Board> boardList;
-
-   public RouteTable getRouteTable() {
-      return routeTable;
-   }
+   private Aspf aspf;
 
    /**
     * Need to add access from the interfaceInfo, such as insert, query, delete
     * One Machine Frame has only one routeTable
     */
    private RouteTable routeTable;
-
    private MacTable macTable;
+
+   public MachineFrame() {
+      this(10);
+   }
+
+   public MachineFrame(int slotNumber) {
+      this.slotNumber = slotNumber;
+      this.boardList = new ArrayList<Board>();
+      for (int i = 0; i < slotNumber; i++) {
+         this.boardList.add(null);
+      }
+      this.routeTable = new RouteTable();
+      this.macTable = new MacTable();
+      this.aspf = new Aspf();
+   }
 
    /**
     * Handle the packet through function board.
@@ -67,19 +79,6 @@ public class MachineFrame {
     */
    public void updateArpTable(Packet packet) {
       routeTable.updateArpTable(packet);
-   }
-
-   public MachineFrame() {
-      this(10);
-   }
-
-   public MachineFrame(int slotNumber) {
-      this.slotNumber = slotNumber;
-      this.boardList = new ArrayList<Board>();
-      for (int i = 0; i < slotNumber; i++) {
-         this.boardList.add(null);
-      }
-      this.routeTable = new RouteTable();
    }
 
    /**
@@ -156,5 +155,21 @@ public class MachineFrame {
 
    public void displayRouteTable() {
       routeTable.display();
+   }
+
+   public Aspf getAspf() {
+      return aspf;
+   }
+
+   public void setAspf(Aspf aspf) {
+      this.aspf = aspf;
+   }
+
+   public void setSlotNumber(int slotNumber) {
+      this.slotNumber = slotNumber;
+   }
+
+   public RouteTable getRouteTable() {
+      return routeTable;
    }
 }

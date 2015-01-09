@@ -30,6 +30,14 @@ public class Checksum {
       if (obj == null) {
          return false;
       }
+      if (!(obj instanceof Checksum)) {
+         return false;
+      }
       return checksum.equals(((Checksum) obj).getChecksum());
+   }
+
+   @Override
+   public int hashCode() {
+      return checksum.hashCode();
    }
 }

@@ -9,8 +9,8 @@ public class MacAddressTest {
    public void testMacAddress() {
       MacAddress mac1 = new MacAddress();
       MacAddress mac2 = new MacAddress();
-      mac2.setAddr("FFFFFFFFFFFF");
-      mac1.setAddr("FFFFFFFFffff");
+      mac2.setAddr("ffffffffffff");
+      mac1.setAddr("ffffffffffff");
       Assert.assertTrue(mac1.equals(mac2));
       Assert.assertTrue(mac1.isBroadcast());
       MacAddress mac3 = new MacAddress();

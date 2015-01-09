@@ -3,14 +3,13 @@ package project.soft.session;
 import java.util.ArrayList;
 
 import project.protocol.header.Packet;
+import project.soft.aspf.Aspf;
 import project.soft.handle.PacketForwarder;
-import project.soft.handle.TableHandler;
 
 /**
  * Created by ypbai on 2014/12/25.
  */
-public class SessionTable implements PacketForwarder, SessionHandler,
-      TableHandler<SessionItem> {
+public class SessionTable implements PacketForwarder, SessionHandler {
 
    private ArrayList<SessionItem> sessionList;
 
@@ -24,32 +23,22 @@ public class SessionTable implements PacketForwarder, SessionHandler,
    }
 
    @Override
-   public void insertItem(SessionItem item) {
+   public SessionItem match(Packet packet) {
+      for (SessionItem si : sessionList) {
+         if (si.match(packet)) {
+            return si;
+         }
+      }
+      return null;
+   }
 
+   @Override
+   public void updateSessionTable(Packet packet) {
+      SessionItem item = match(packet);
    }
 
    @Override
    public void display() {
 
-   }
-
-   @Override
-   public void deleteItem(SessionItem item) {
-
-   }
-
-   @Override
-   public void updateItem(SessionItem item) {
-
-   }
-
-   @Override
-   public SessionItem getItem(SessionItem item) {
-      return null;
-   }
-
-   @Override
-   public boolean match(Packet packet) {
-      return false;
    }
 }

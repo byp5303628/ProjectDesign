@@ -24,15 +24,25 @@ public class Port {
 
    /**
     * Check if two port equals
-    * 
-    * @param obj
+    *
+    * @param o
     * @return
     */
-   public boolean equals(Object obj) {
-      if (obj == null) {
-         return false;
-      }
-      return port.equals(((Port) obj).getPort());
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Port)) return false;
+
+      Port port1 = (Port) o;
+
+      if (!port.equals(port1.port)) return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      return port.hashCode();
    }
 
    public Port(String port) {

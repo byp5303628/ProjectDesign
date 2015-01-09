@@ -2,6 +2,8 @@ package project.protocol.datagram.layer3.ip;
 
 import project.exceptions.InvalidPointStringException;
 
+import java.util.Objects;
+
 public class Ipv4Address {
    /*
     * The core part of the ip header
@@ -41,26 +43,37 @@ public class Ipv4Address {
          throw new InvalidPointStringException(input);
       }
       String[] s = input.split("\\.");
-      String result = "";
+      StringBuffer result = new StringBuffer("");
       for (String sub : s) {
          int num = Integer.parseInt(sub);
          if (15 < num && num <= 255) {
-            result += Integer.toHexString(num);
+            result.append(Integer.toHexString(num));
          } else if (num <= 15) {
-            result = result + '0' + Integer.toHexString(num);
+            result.append("0");
+            result.append(Integer.toHexString(num));
          } else {
             throw new InvalidPointStringException(input);
          }
 
       }
-      this.setIp(result);
+      this.setIp(result.toString());
    }
 
+   @Override
+   public int hashCode() {
+      return ip.hashCode();
+   }
+
+   @Override
    public boolean equals(Object obj) {
-      if (obj == null) {
+      if (this == obj) {
+         return true;
+      }
+      if (obj == null || getClass() != obj.getClass()) {
          return false;
       }
-      return ip.equals(((Ipv4Address) obj).getIp());
+      final Ipv4Address other = (Ipv4Address) obj;
+      return Objects.equal(this.ip, other.ip);
    }
 
    public String toString() {

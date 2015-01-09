@@ -35,6 +35,7 @@ public class SessionItem {
     * @param packet
     * @return
     */
+   @edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"SF_SWITCH_NO_DEFAULT"})
    public static SessionItem createSessionItem(Packet packet) {
       if (packet.getL4() == null) {
          // If packet has no layer 4, do not create session item.
@@ -69,6 +70,40 @@ public class SessionItem {
       }
       result.setApplication();
       return result;
+   }
+
+   /**
+    * Check if one packet matches the session item, if match return true, else
+    * return false
+    * 
+    * @param packet
+    * @return
+    */
+   public boolean match(Packet packet) {
+      if (inSrcIpv4Address.equals(packet.getSrcIp())
+            && inDestIpv4Address.equals(packet.getDestIp())) {
+         // compare the in
+         if (inSrcPort == null && inDestPort == null) {
+            return packet.getSrcPort() == null && packet.getDestPort() == null;
+         } else if (inSrcPort == null || inDestPort == null) {
+            return false;
+         } else {
+            return inSrcPort.equals(packet.getSrcPort())
+                  && inDestPort.equals(packet.getDestPort());
+         }
+      } else if (outSrcIpv4Address.equals(packet.getSrcIp())
+            && outDestIpv4Address.equals(packet.getDestIp())) {
+         // compare the out
+         if (outSrcPort == null && outDestPort == null) {
+            return packet.getSrcPort() == null && packet.getDestPort() == null;
+         } else if (outSrcPort == null || outDestPort == null) {
+            return false;
+         } else {
+            return outDestPort.equals(packet.getDestPort())
+                  && outSrcPort.equals(packet.getSrcPort());
+         }
+      }
+      return false;
    }
 
    private void setApplication() {

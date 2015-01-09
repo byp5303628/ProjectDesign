@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class Helper {
    public static String randomHexString(int length) {
-      String result = "";
+      StringBuffer result = new StringBuffer("");
       for (int i = 0; i < length; i++) {
-         result += randomHexChar();
+         result.append(randomHexChar());
       }
-      return result;
+      return result.toString();
    }
 
    private static String randomHexChar() {

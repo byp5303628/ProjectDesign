@@ -13,6 +13,7 @@ import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 import project.protocol.header.layer3.Layer3;
 import project.protocol.header.layer4.*;
 
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"BC_UNCONFIRMED_CAST"})
 public class Packet {
    private Layer2 l2;
    private Layer3 l3;
@@ -124,7 +125,7 @@ public class Packet {
     * @return
     */
    public LAYER_4_PROTOCOL getLayer4Protocol() {
-      if (l3 != null && isIpPacket()) {
+      if (l3 != null && isIpPacket() && l3 instanceof Ip) {
          return ((Ip) l3).getInternetType().getNextProtocol();
       }
       return null;
@@ -227,7 +228,7 @@ public class Packet {
    }
 
    public String toString() {
-      if (this.l4 != null) {
+      if (this.l4 == null) {
          String result = this.l2.toString() + this.l3.toString();
          return result;
       } else {

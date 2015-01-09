@@ -21,10 +21,21 @@ public class Sequence {
       return sequence;
    }
 
-   public boolean equals(Object object) {
-      if (object == null)
-         return false;
-      return sequence.equals(((Sequence) object).getSequence());
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Sequence)) return false;
+
+      Sequence sequence1 = (Sequence) o;
+
+      if (!sequence.equals(sequence1.sequence)) return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      return sequence.hashCode();
    }
 
    public void setSequence(String sequence) {

@@ -10,8 +10,6 @@ import project.protocol.header.layer4.APPLICATION;
 import project.protocol.header.layer4.LAYER_4_PROTOCOL;
 import project.protocol.header.layer4.Udp;
 
-import java.util.HashMap;
-
 /**
  * Created by ypbai on 2015/1/7.
  */
@@ -19,8 +17,8 @@ public class SessionItemTest {
    @Test
    public void testConstructor1() {
       String udpPacket =
-            PacketConstant.ETHERNET_IP_PACKET
-                  + PacketConstant.UDP_IP_PACKET + PacketConstant.UDP_HEADER;
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.UDP_IP_PACKET
+                  + PacketConstant.UDP_HEADER;
       Packet packet = Packet.makePacket(udpPacket);
       SessionItem si = SessionItem.createSessionItem(packet);
 
@@ -41,8 +39,8 @@ public class SessionItemTest {
    @Test
    public void testConstructor2() {
       String tcpPacket =
-              PacketConstant.ETHERNET_IP_PACKET
-                      + PacketConstant.TCP_IP_PACKET + PacketConstant.TCP_HEADER;
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.TCP_IP_PACKET
+                  + PacketConstant.TCP_HEADER;
       Packet packet = Packet.makePacket(tcpPacket);
       SessionItem si = SessionItem.createSessionItem(packet);
 
@@ -63,8 +61,7 @@ public class SessionItemTest {
    @Test
    public void testConstructor3() {
       String rawIpPacket =
-              PacketConstant.ETHERNET_IP_PACKET
-                      + PacketConstant.RAW_IP_PACKET;
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.RAW_IP_PACKET;
       Packet packet = Packet.makePacket(rawIpPacket);
       SessionItem si = SessionItem.createSessionItem(packet);
 
@@ -74,8 +71,8 @@ public class SessionItemTest {
    @Test
    public void testConstructor4() {
       String udpPacket =
-              PacketConstant.ETHERNET_IP_PACKET
-                      + PacketConstant.UDP_IP_PACKET + PacketConstant.UDP_HEADER;
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.UDP_IP_PACKET
+                  + PacketConstant.UDP_HEADER;
       Packet packet = Packet.makePacket(udpPacket);
       Udp udp = (Udp) packet.getL4();
       udp.setDestPort(new Port(21));
@@ -95,8 +92,8 @@ public class SessionItemTest {
    @Test
    public void testToString() {
       String udpPacket =
-              PacketConstant.ETHERNET_IP_PACKET
-                      + PacketConstant.UDP_IP_PACKET + PacketConstant.UDP_HEADER;
+            PacketConstant.ETHERNET_IP_PACKET + PacketConstant.UDP_IP_PACKET
+                  + PacketConstant.UDP_HEADER;
       Packet packet = Packet.makePacket(udpPacket);
       SessionItem si = SessionItem.createSessionItem(packet);
       System.out.println(si.toString());

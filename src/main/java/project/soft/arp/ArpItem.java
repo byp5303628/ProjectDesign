@@ -11,6 +11,10 @@ public class ArpItem {
    private Ipv4Address ip;
    private MacAddress mac;
 
+   public ArpItem() {
+      this.ip = new Ipv4Address();
+      this.mac = new MacAddress();
+   }
 
    public MacAddress getMac() {
       return mac;
@@ -30,13 +34,26 @@ public class ArpItem {
 
    @Override
    public boolean equals(Object o) {
-      if (o == null)
+      if (this == o)
+         return true;
+      if (!(o instanceof ArpItem))
          return false;
-      if (!ip.equals(((ArpItem) o).getIp()))
+
+      ArpItem arpItem = (ArpItem) o;
+
+      if (!ip.equals(arpItem.ip))
          return false;
-      if (!mac.equals(((ArpItem) o).getMac()))
+      if (!mac.equals(arpItem.mac))
          return false;
+
       return true;
+   }
+
+   @Override
+   public int hashCode() {
+      int result = ip.hashCode();
+      result = 31 * result + mac.hashCode();
+      return result;
    }
 
    public String toString() {
