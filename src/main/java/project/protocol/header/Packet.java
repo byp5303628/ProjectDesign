@@ -13,7 +13,6 @@ import project.protocol.header.layer3.LAYER_3_PROTOCOL;
 import project.protocol.header.layer3.Layer3;
 import project.protocol.header.layer4.*;
 
-@edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"BC_UNCONFIRMED_CAST"})
 public class Packet {
    private Layer2 l2;
    private Layer3 l3;

@@ -11,8 +11,8 @@ public enum APPLICATION {
 
    private String application;
 
-   APPLICATION(String application) {
-      this.application = application;
+   APPLICATION(String a) {
+      this.application = a;
    }
 
    @Override

@@ -2,7 +2,6 @@ package project.protocol.datagram.layer3.ip;
 
 import project.exceptions.InvalidPointStringException;
 
-import java.util.Objects;
 
 public class Ipv4Address {
    /*
@@ -73,7 +72,7 @@ public class Ipv4Address {
          return false;
       }
       final Ipv4Address other = (Ipv4Address) obj;
-      return Objects.equal(this.ip, other.ip);
+      return this.ip.equals(other.getIp());
    }
 
    public String toString() {

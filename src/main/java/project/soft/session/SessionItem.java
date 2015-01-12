@@ -35,7 +35,6 @@ public class SessionItem {
     * @param packet
     * @return
     */
-   @edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"SF_SWITCH_NO_DEFAULT"})
    public static SessionItem createSessionItem(Packet packet) {
       if (packet.getL4() == null) {
          // If packet has no layer 4, do not create session item.

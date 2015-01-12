@@ -6,7 +6,7 @@ import project.soft.session.SessionItem;
 /**
  * Created by ypbai on 2015/1/7.
  */
-public class TcpCheck {
+public abstract class TcpCheck {
    /**
     * Do tcp interactive check,
     * @return
