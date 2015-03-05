@@ -60,18 +60,6 @@ public class RouteItem implements Comparable<RouteItem> {
       return result;
    }
 
-   /**
-    * Compare two route item, check if they equals. Only compare the target ip
-    * address, mask, next hop address.
-    *
-    * @param obj
-    * @return
-    */
-
-
-
-
-
    public Ipv4Address getTarget() {
       return target;
    }

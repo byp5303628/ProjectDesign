@@ -73,41 +73,6 @@ public abstract class InterfaceInfo implements PacketHandler {
 
    @Override
    public void handleIn(Packet packet) {
-      if (packet.isBroadcast()) {
-         // First if it is a broadcast packet, check if it is a arp request
-         if (packet.isArpRequest()) {
-            // answer it with self's interface info
-            sendArpResponse(packet);
-         } else {
-            // it's a invalid packet, drop it.
-            return;
-         }
-      } else if (packet.getDestMac().equals(this.getMacAddress())) {
-         // This is the destination, send response
-         switch (packet.getLayer3()) {
-         case ARP:
-            // update the arp table and return.
-            if (!isValidArpResponsePacket(packet)) {
-               return;
-            }
-            if (ipv4Address == null) {
-               return;
-            }
-            this.getBoard().getMachineFrame().updateArpTable(packet);
-            return;
-         case IP:
-            // let the function table do the interactive.
-            this.getBoard().getMachineFrame()
-                  .forwardThroughSessionTable(packet);
-            return;
-         case INVALID_PROTOCOL:
-            // drop invalid packet
-            return;
-         }
-      } else {
-         // This is not the destination, forward it through mac table
-         getBoard().getMachineFrame().forwardThroughMacTable(packet);
-      }
    }
 
    @Override
@@ -145,7 +110,7 @@ public abstract class InterfaceInfo implements PacketHandler {
       return this.ipv4Address.equals(ip);
    }
 
-   private void sendArpResponse(Packet packet) {
+   protected void sendArpResponse(Packet packet) {
       Packet p = new Packet();
       Ethernet e = Ethernet.makeArpEthernet();
       e.setSrcMac(this.getMacAddress());
@@ -161,7 +126,7 @@ public abstract class InterfaceInfo implements PacketHandler {
       this.getLinkedTo().handleIn(p);
    }
 
-   private boolean isValidArpResponsePacket(Packet packet) {
+   protected boolean isValidArpResponsePacket(Packet packet) {
       Arp arp = (Arp) packet.getL3();
       if (!arp.getSendMac().equals(this.getMacAddress())) {
          return false;

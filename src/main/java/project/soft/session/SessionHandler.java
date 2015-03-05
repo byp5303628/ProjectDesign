@@ -23,9 +23,4 @@ public interface SessionHandler {
     *           , which is the input packet
     */
    public void updateSessionTable(Packet packet);
-
-   /**
-    * Display all the session item in the session table
-    */
-   public void display();
 }
