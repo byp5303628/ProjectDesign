@@ -16,4 +16,8 @@ public class FunctionBoard extends Board {
       // TODO Auto-generated method stub
       sessionTable.display();
    }
+
+   public SessionTable getSessionTable() {
+      return sessionTable;
+   }
 }

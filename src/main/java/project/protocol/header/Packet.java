@@ -236,4 +236,8 @@ public class Packet {
          return result;
       }
    }
+
+   public int hashFromSourceAndDest() {
+      return getDestIp().hashCode() + getSrcIp().hashCode();
+   }
 }

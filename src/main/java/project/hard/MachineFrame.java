@@ -1,15 +1,21 @@
 package project.hard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
+import project.hard.board.FunctionBoard;
+import project.hard.interf.InterfaceInfo;
 import project.protocol.header.Packet;
 import project.soft.aspf.Aspf;
 import project.soft.mac.MacTable;
 import project.soft.route.RouteTable;
+import project.soft.session.SessionItem;
+import project.soft.session.SessionTable;
 
 public class MachineFrame {
    /*
@@ -20,6 +26,11 @@ public class MachineFrame {
    private int slotNumber;
    private ArrayList<Board> boardList;
    private Aspf aspf;
+   /*
+    * This map is used to map int to slot number. So that, when machine frame
+    * must handle a packet, it can easily get the assigned session table.
+    */
+   private Map<Integer, Integer> mapToSlot = new HashMap<Integer, Integer>();
 
    /**
     * Need to add access from the interfaceInfo, such as insert, query, delete
@@ -50,6 +61,32 @@ public class MachineFrame {
     */
    public void forwardThroughSessionTable(Packet packet) {
       // (TODO : create hash set to handle the packet through function board.)
+      // find session table
+      SessionTable targetSessionTable = findSessionTable(packet);
+
+      // find session item
+      SessionItem si = targetSessionTable.match(packet);
+
+      // if there is no matching session item in the session table
+      if (si == null){
+         si = SessionItem.createSessionItem(packet);
+      }
+
+      // check if aspf allow this packet
+      if (aspf.isPacketAllowed(si, packet)) {
+         forwardThroughRouteTable(packet);
+         targetSessionTable.insertItem(si);
+      } else {
+         targetSessionTable.deleteItem(si);
+      }
+   }
+
+
+   private SessionTable findSessionTable(Packet packet) {
+      // finde a packet through hash
+      int hash = packet.hashFromSourceAndDest() % mapToSlot.size();
+      return ((FunctionBoard) boardList.get(mapToSlot.get(hash)))
+            .getSessionTable();
    }
 
    /**
@@ -58,8 +95,8 @@ public class MachineFrame {
     *
     * @param packet
     */
-   public void forwardThroughRouteTable(Packet packet) {
-      forwardThroughSessionTable(packet);
+   private void forwardThroughRouteTable(Packet packet) {
+      //      forwardThroughSessionTable(packet);
       routeTable.forward(packet);
    }
 
@@ -95,6 +132,10 @@ public class MachineFrame {
          throws BoardExistingException, SlotNotExistException {
       if (this.getBoard(slotNum) == null) {
          this.boardList.add(slotNum, board);
+         if (board.getType().equals("Function Board")) {
+            mapToSlot.put(mapToSlot.size(), slotNum);
+         }
+
          board.setSlot(slotNum);
          board.setMachineFrame(this);
       } else {

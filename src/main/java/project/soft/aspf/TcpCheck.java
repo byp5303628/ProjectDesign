@@ -14,6 +14,15 @@ public abstract class TcpCheck {
     * @param packet
     */
    public static boolean doTcpCheck(SessionItem sessionItem, Packet packet) {
+      //
+      return true;
+   }
+
+   private static boolean handleIn(SessionItem si, Packet packet) {
+      return true;
+   }
+
+   private static boolean handleOut(SessionItem si, Packet packet) {
       return true;
    }
 }
