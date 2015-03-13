@@ -4,13 +4,16 @@ import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.soft.handle.PacketHandler;
+import project.soft.nat.NatConfig;
 
 public class RouteInterfaceInfo extends InterfaceInfo implements PacketHandler {
+   private NatConfig natConfig;
 
    public RouteInterfaceInfo() {
       this.setMode(Mode.Route);
       this.setMacAddress(MacAddress.makeMacAddress());
       this.setIpv4Address(new Ipv4Address());
+      natConfig = new NatConfig();
    }
 
    public void handleIn(Packet packet) {

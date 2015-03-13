@@ -1,9 +1,10 @@
 package project.protocol.datagram.layer3.ip;
 
 import project.exceptions.InvalidPointStringException;
+import project.soft.util.RangeInter;
 
 
-public class Ipv4Address {
+public class Ipv4Address implements RangeInter<Ipv4Address> {
    /*
     * The core part of the ip header
     * it's a 32 bit datagram.
@@ -58,6 +59,13 @@ public class Ipv4Address {
       this.setIp(result.toString());
    }
 
+   public Integer getIntIp() {
+      Integer first = Integer.parseInt(ip.substring(0, 16), 16);
+      Integer second = Integer.parseInt(ip.substring(16, 32), 16);
+
+      return first * 65536 + second;
+   }
+
    @Override
    public int hashCode() {
       return ip.hashCode();
@@ -77,5 +85,16 @@ public class Ipv4Address {
 
    public String toString() {
       return this.ip;
+   }
+
+   @Override
+   public int compareTo(Ipv4Address o) {
+      return getIntIp().compareTo(o.getIntIp());
+   }
+
+   @Override
+   public Ipv4Address generateRandomItem(Ipv4Address end) {
+
+      return null;
    }
 }

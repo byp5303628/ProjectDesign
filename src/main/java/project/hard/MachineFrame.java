@@ -9,7 +9,6 @@ import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 import project.hard.board.FunctionBoard;
-import project.hard.interf.InterfaceInfo;
 import project.protocol.header.Packet;
 import project.soft.aspf.Aspf;
 import project.soft.mac.MacTable;
@@ -196,18 +195,6 @@ public class MachineFrame {
 
    public void displayRouteTable() {
       routeTable.display();
-   }
-
-   public Aspf getAspf() {
-      return aspf;
-   }
-
-   public void setAspf(Aspf aspf) {
-      this.aspf = aspf;
-   }
-
-   public void setSlotNumber(int slotNumber) {
-      this.slotNumber = slotNumber;
    }
 
    public RouteTable getRouteTable() {

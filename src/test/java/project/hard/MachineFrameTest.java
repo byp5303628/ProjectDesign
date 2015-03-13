@@ -5,9 +5,15 @@ import org.testng.annotations.Test;
 
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
+import project.exceptions.InterfaceNotExistException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
+import project.hard.board.FunctionBoard;
 import project.hard.board.InterfaceBoard;
+import project.hard.interf.InterfaceInfo;
+import project.hard.interf.RouteInterfaceInfo;
+import project.protocol.header.Packet;
+import project.protocol.header.PacketConstant;
 
 public class MachineFrameTest {
    @Test
@@ -74,5 +80,75 @@ public class MachineFrameTest {
          SlotNotExistException {
       MachineFrame mf = new MachineFrame(10);
       mf.deleteBoard(0);
+   }
+
+   @Test
+   public void testForwardWithNoRoute() {
+      MachineFrame mf = new MachineFrame();
+      Board f1 = new FunctionBoard();
+      Board f2 = new FunctionBoard();
+
+      try {
+         mf.insertBoard(5, f1);
+         mf.insertBoard(3, f2);
+      } catch (BoardExistingException e) {
+         e.printStackTrace();
+      } catch (SlotNotExistException e) {
+         e.printStackTrace();
+      }
+
+      Packet p =
+            Packet.makePacket(PacketConstant.ETHERNET_IP_PACKET
+                  + PacketConstant.UDP_IP_PACKET+ PacketConstant.UDP_HEADER);
+
+      mf.forwardThroughSessionTable(p);
+   }
+
+   @Test
+   public void testForwardWithRoute() {
+//      MachineFrame mf = new MachineFrame();
+//      Board f1 = new FunctionBoard();
+//      Board f2 = new FunctionBoard();
+//      InterfaceBoard interfaceBoard = new InterfaceBoard();
+//
+//      InterfaceInfo start = new RouteInterfaceInfo();
+//      InterfaceInfo end = new RouteInterfaceInfo();
+//
+//      try {
+//         mf.insertBoard(5, f1);
+//         mf.insertBoard(3, f2);
+//         mf.insertBoard(2, interfaceBoard);
+//      } catch (BoardExistingException e) {
+//         e.printStackTrace();
+//      } catch (SlotNotExistException e) {
+//         e.printStackTrace();
+//      }
+//
+//      InterfaceInfo in = null;
+//      InterfaceInfo out = null;
+//
+//      try {
+//         // get in and out interface
+//         in = interfaceBoard.getInterface(2);
+//         out = interfaceBoard.getInterface(5);
+//      } catch (InterfaceNotExistException e) {
+//         e.printStackTrace();
+//      }
+//
+//      // connect the interface
+//      in.setLinkedTo(start);
+//      start.setLinkedTo(in);
+//
+//      out.setLinkedTo(end);
+//      end.setLinkedTo(out);
+//
+//      Packet p =
+//              Packet.makePacket(PacketConstant.ETHERNET_IP_PACKET
+//                      + PacketConstant.UDP_IP_PACKET+ PacketConstant.UDP_HEADER);
+//
+//
+//
+//
+//      mf.forwardThroughSessionTable(p);
    }
 }

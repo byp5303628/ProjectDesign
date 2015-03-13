@@ -1,9 +1,11 @@
 package project.protocol.datagram.layer4;
 
+import project.soft.util.RangeInter;
+
 /**
  * Created by ypbai on 2015/1/5.
  */
-public class Port {
+public class Port implements RangeInter<Port> {
    /*
     * By default, it is 1024
     */
@@ -30,12 +32,15 @@ public class Port {
     */
    @Override
    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (!(o instanceof Port)) return false;
+      if (this == o)
+         return true;
+      if (!(o instanceof Port))
+         return false;
 
       Port port1 = (Port) o;
 
-      if (!port.equals(port1.port)) return false;
+      if (!port.equals(port1.port))
+         return false;
 
       return true;
    }
@@ -75,5 +80,15 @@ public class Port {
     */
    public String toString() {
       return Integer.toString(getPortNum());
+   }
+
+   @Override
+   public int compareTo(Port o) {
+      return getPortNum() - o.getPortNum();
+   }
+
+   @Override
+   public Port generateRandomItem(Port end) {
+      return null;
    }
 }
