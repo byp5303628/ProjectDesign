@@ -1,5 +1,7 @@
 package project.client.interfaces;
 
+import project.hard.interf.InterfaceInfo;
+
 /**
  * Created by ypbai on 2015/1/4.
  */
@@ -15,10 +17,10 @@ public interface InterfaceControl {
    /**
     * Shut down interface
     */
-   public void shutDown();
+   public void shutDown(InterfaceInfo interfaceInfo);
 
    /**
     * Start up interface
     */
-   public void startUp();
+   public void startUp(InterfaceInfo interfaceInfo);
 }

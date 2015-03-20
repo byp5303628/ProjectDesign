@@ -3,15 +3,13 @@ package project.hard;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import project.exceptions.BoardExistingException;
-import project.exceptions.BoardNotExistingException;
-import project.exceptions.InterfaceNotExistException;
-import project.exceptions.SlotNotExistException;
+import project.exceptions.*;
 import project.hard.board.Board;
 import project.hard.board.FunctionBoard;
 import project.hard.board.InterfaceBoard;
 import project.hard.interf.InterfaceInfo;
 import project.hard.interf.RouteInterfaceInfo;
+import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.protocol.header.PacketConstant;
 
@@ -150,5 +148,40 @@ public class MachineFrameTest {
 //
 //
 //      mf.forwardThroughSessionTable(p);
+   }
+
+   @Test
+   public void testBootMachine() {
+      MachineFrame mf = new MachineFrame();
+      mf.bootMachine();
+      mf.shutDownMachine();
+   }
+
+   @Test
+   public void testSessionBackUp() {
+      MachineFrame mf = new MachineFrame(20);
+      mf.sessionBackUp();
+      mf.displayRouteTable();
+      mf.displayBoards();
+      mf.displaySessions();
+   }
+
+   @Test
+   public void testUpdateRoutingTable() {
+      MachineFrame mf = new MachineFrame();
+      Ipv4Address ip = new Ipv4Address();
+
+      int mask = 24;
+
+      Ipv4Address nextIp = new Ipv4Address();
+      try {
+         nextIp.setPointString("2.2.2.2");
+      } catch (InvalidPointStringException e) {
+         e.printStackTrace();
+      }
+
+      mf.updateRouteTable(ip, mask, nextIp);
+
+      mf.displayRouteTable();
    }
 }

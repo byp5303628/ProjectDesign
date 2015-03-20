@@ -10,6 +10,7 @@ import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 import project.hard.board.FunctionBoard;
+import project.hard.interf.InterfaceInfo;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.soft.aspf.Aspf;
@@ -129,6 +130,7 @@ public class MachineFrame implements MachineControl {
     * @throws BoardExistingException
     * @throws SlotNotExistException
     */
+   @Override
    public void insertBoard(int slotNum, Board board)
          throws BoardExistingException, SlotNotExistException {
       if (this.getBoard(slotNum) == null) {
@@ -160,12 +162,6 @@ public class MachineFrame implements MachineControl {
       }
    }
 
-   @Override
-   public void insertBoard(Board board, int slotNumber)
-         throws BoardExistingException {
-
-   }
-
    /**
     * Remove the specific slot number's board
     *
@@ -184,16 +180,26 @@ public class MachineFrame implements MachineControl {
 
    @Override
    public void displayBoards() {
-
+      System.out.println("Boards Info");
+      for (int i = 0; i < this.slotNumber; i++) {
+         if (boardList.get(i) != null) {
+            System.out.println("Slot " + i + ":");
+            System.out.println(this.boardList.get(i).toString());
+         }
+      }
    }
 
    /**
     * Display the session of the machine frame
     */
    public void displaySessions() {
+      System.out.println("Session Info");
       for (int i = 0; i < this.slotNumber; i++) {
          System.out.println("Slot " + i + ":");
-         this.boardList.get(i).displaySession();
+         Board b = boardList.get(i);
+         if (b != null) {
+            b.displaySession();
+         }
       }
    }
 
@@ -236,12 +242,12 @@ public class MachineFrame implements MachineControl {
    }
 
    @Override
-   public void shutDown() {
+   public void shutDown(InterfaceInfo interfaceInfo) {
 
    }
 
    @Override
-   public void startUp() {
+   public void startUp(InterfaceInfo interfaceInfo) {
 
    }
 }

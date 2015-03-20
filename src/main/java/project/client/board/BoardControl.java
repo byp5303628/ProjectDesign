@@ -15,8 +15,8 @@ public interface BoardControl {
     * @param board
     * @throws BoardExistingException
     */
-   public void insertBoard(Board board, int slotNumber)
-         throws BoardExistingException;
+   public void insertBoard(int slotNumber, Board board)
+         throws BoardExistingException, SlotNotExistException;
 
    /**
     * Delete specified slot number board.
