@@ -3,6 +3,8 @@ package project.hard.interf;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
+import project.protocol.header.layer2.Ethernet;
+import project.protocol.header.layer3.Arp;
 import project.soft.handle.PacketHandler;
 import project.soft.nat.NatConfig;
 
@@ -58,6 +60,46 @@ public class RouteInterfaceInfo extends InterfaceInfo implements PacketHandler {
 
    @Override
    public void handleOut(Packet packet) {
+      this.getLinkedTo().handleIn(packet);
+   }
 
+   /**
+    * Create a packet which is an arp request, includes L2 for ethernet
+    *
+    * @param target
+    *           , which is the dest ip we want to get its mac address
+    * @return
+    */
+   public Packet sendArpRequest(Ipv4Address target) {
+      Packet p = new Packet();
+      Ethernet e = Ethernet.makeArpEthernet();
+      e.setSrcMac(this.getMacAddress());
+      p.setL2(e);
+      Arp arp = Arp.makeArpRequest();
+      arp.setSendIp(this.getIpv4Address());
+      arp.setRecvIp(target);
+      p.setL3(arp);
+      return p;
+   }
+
+   /**
+    * Create a packet which is an arp response, include L2 for ethernet.
+    * 
+    * @param packet
+    */
+   public void sendArpResponse(Packet packet) {
+      Packet p = new Packet();
+      Ethernet e = Ethernet.makeArpEthernet();
+      e.setSrcMac(this.getMacAddress());
+      e.setDestMac(packet.getSrcMac());
+      p.setL2(e);
+
+      Arp arp = Arp.makeArpResponse();
+      arp.setSendIp(((Arp) packet.getL3()).getRecvIp());
+      arp.setRecvIp(((Arp) packet.getL3()).getSendIp());
+      arp.setSendMac(this.getMacAddress());
+      arp.setRecvMac(packet.getSrcMac());
+      p.setL3(arp);
+      this.handleOut(packet);
    }
 }

@@ -22,6 +22,20 @@ public class Ipv4Address implements RangeInter<Ipv4Address> {
       this.ip = "c0a80101";
    }
 
+   /**
+    * Make ip address through point string.
+    * 
+    * @param s
+    * @return
+    * @throws InvalidPointStringException
+    */
+   public static Ipv4Address makeIpThroughPointString(String s)
+         throws InvalidPointStringException {
+      Ipv4Address ip = new Ipv4Address();
+      ip.setPointString(s);
+      return ip;
+   }
+
    public String getIp() {
       return ip;
    }
@@ -60,8 +74,8 @@ public class Ipv4Address implements RangeInter<Ipv4Address> {
    }
 
    public Integer getIntIp() {
-      Integer first = Integer.parseInt(ip.substring(0, 16), 16);
-      Integer second = Integer.parseInt(ip.substring(16, 32), 16);
+      Integer first = Integer.parseInt(ip.substring(0, 4), 16);
+      Integer second = Integer.parseInt(ip.substring(4, 8), 16);
 
       return first * 65536 + second;
    }
@@ -89,7 +103,7 @@ public class Ipv4Address implements RangeInter<Ipv4Address> {
 
    @Override
    public int compareTo(Ipv4Address o) {
-      return getIntIp().compareTo(o.getIntIp());
+      return getIntIp() - o.getIntIp();
    }
 
    @Override

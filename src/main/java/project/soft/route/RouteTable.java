@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import project.hard.interf.InterfaceInfo;
+import project.hard.interf.RouteInterfaceInfo;
 import project.protocol.datagram.layer2.ethernet.MacAddress;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
@@ -64,7 +65,7 @@ public class RouteTable implements TableHandler<RouteItem>, PacketForwarder {
     * @param target
     * @return
     */
-   public InterfaceInfo getOutputInterface(Ipv4Address target) {
+   public RouteInterfaceInfo getOutputInterface(Ipv4Address target) {
       for (RouteItem ri : this.routeList) {
          if (ri.match(target)) {
             return ri.getOutputInterface();
@@ -93,7 +94,7 @@ public class RouteTable implements TableHandler<RouteItem>, PacketForwarder {
    public void forward(Packet packet) {
       // first, find the target output interface
       Ipv4Address dest = packet.getDestIp();
-      InterfaceInfo outputInterface = getOutputInterface(dest);
+      RouteInterfaceInfo outputInterface = (RouteInterfaceInfo) getOutputInterface(dest);
 
       // if cannot find outputInterface, drop packet
       if (outputInterface == null) {

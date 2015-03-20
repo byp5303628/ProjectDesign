@@ -1,13 +1,14 @@
 package project.soft.route;
 
 import project.hard.interf.InterfaceInfo;
+import project.hard.interf.RouteInterfaceInfo;
 import project.protocol.datagram.layer3.ip.Ipv4Address;
 
 public class RouteItem implements Comparable<RouteItem> {
    private Ipv4Address target;
    private int mask;
    private Ipv4Address nextHop;
-   private InterfaceInfo outputInterface;
+   private RouteInterfaceInfo outputInterface;
 
    public ROUTE_TYPE getType() {
       return type;
@@ -40,14 +41,19 @@ public class RouteItem implements Comparable<RouteItem> {
 
    @Override
    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (!(o instanceof RouteItem)) return false;
+      if (this == o)
+         return true;
+      if (!(o instanceof RouteItem))
+         return false;
 
       RouteItem routeItem = (RouteItem) o;
 
-      if (mask != routeItem.mask) return false;
-      if (!target.equals(routeItem.target)) return false;
-      if (type != routeItem.type) return false;
+      if (mask != routeItem.mask)
+         return false;
+      if (!target.equals(routeItem.target))
+         return false;
+      if (type != routeItem.type)
+         return false;
 
       return true;
    }
@@ -68,12 +74,12 @@ public class RouteItem implements Comparable<RouteItem> {
       this.target = target;
    }
 
-   public InterfaceInfo getOutputInterface() {
+   public RouteInterfaceInfo getOutputInterface() {
       return outputInterface;
    }
 
    public void setOutputInterface(InterfaceInfo outputInterface) {
-      this.outputInterface = outputInterface;
+      this.outputInterface = (RouteInterfaceInfo) outputInterface;
    }
 
    public int getMask() {

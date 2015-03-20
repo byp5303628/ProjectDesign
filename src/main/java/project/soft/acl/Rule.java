@@ -35,7 +35,11 @@ public class Rule implements Comparable<Rule> {
    }
 
    public boolean match(Packet packet) {
-      return false;
+      return rb.match(packet);
+   }
+
+   public void setRb(RuleBuilder rb) {
+      this.rb = rb;
    }
 
    @Override
@@ -43,7 +47,7 @@ public class Rule implements Comparable<Rule> {
       return this.index - o.getIndex();
    }
 
-   class RuleBuilder {
+   static class RuleBuilder {
       public Range<Ipv4Address> srcIpRange;
       public Range<Ipv4Address> destIpRange;
       public Range<Port> srcPortRange;
@@ -68,5 +72,25 @@ public class Rule implements Comparable<Rule> {
          this.destPortRange = new Range<Port>(start, end);
          return this;
       }
+
+      public boolean match(Packet packet) {
+         if (this.srcIpRange != null && !this.srcIpRange.isInRange(packet.getSrcIp())) {
+            return false;
+         }
+         if (this.destIpRange != null && !this.destIpRange.isInRange(packet.getDestIp())) {
+            return false;
+         }
+         if (this.srcPortRange != null
+               && !this.srcPortRange.isInRange(packet.getSrcPort())) {
+            return false;
+         }
+         if (this.destPortRange != null
+               && !this.destPortRange.isInRange(packet.getDestPort())) {
+            return false;
+         }
+         return true;
+      }
+
+
    }
 }

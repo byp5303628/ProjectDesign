@@ -86,24 +86,7 @@ public abstract class InterfaceInfo implements PacketHandler {
       this.getLinkedTo().handleIn(packet);
    }
 
-   /**
-    * Create a packet which is an arp request, includes L2 for ethernet
-    *
-    * @param target
-    *           , which is the dest ip we want to get its mac address
-    * @return
-    */
-   public Packet sendArpRequest(Ipv4Address target) {
-      Packet p = new Packet();
-      Ethernet e = Ethernet.makeArpEthernet();
-      e.setSrcMac(this.getMacAddress());
-      p.setL2(e);
-      Arp arp = Arp.makeArpRequest();
-      arp.setSendIp(this.ipv4Address);
-      arp.setRecvIp(target);
-      p.setL3(arp);
-      return p;
-   }
+
 
    /**
     * If this ip address is destination

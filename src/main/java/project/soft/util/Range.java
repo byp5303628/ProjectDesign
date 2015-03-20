@@ -13,7 +13,9 @@ public class Range<T extends RangeInter<T>> {
    }
 
    public boolean isInRange(T t) {
-      return t.compareTo(start) >= 0 && t.compareTo(end) <= 0;
+      int first = t.compareTo(start);
+      int second = t.compareTo(end);
+      return first >= 0 && second <= 0;
    }
 
    public T generateRandomItem() {
