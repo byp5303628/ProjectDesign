@@ -10,12 +10,14 @@ public class RouteInterfaceInfo extends InterfaceInfo implements PacketHandler {
    private NatConfig natConfig;
 
    public RouteInterfaceInfo() {
+      super();
       this.setMode(Mode.Route);
       this.setMacAddress(MacAddress.makeMacAddress());
       this.setIpv4Address(new Ipv4Address());
       natConfig = new NatConfig();
    }
 
+   @Override
    public void handleIn(Packet packet) {
       if (packet.isBroadcast()) {
          // First if it is a broadcast packet, check if it is a arp request
@@ -52,5 +54,10 @@ public class RouteInterfaceInfo extends InterfaceInfo implements PacketHandler {
          // drop it
          return;
       }
+   }
+
+   @Override
+   public void handleOut(Packet packet) {
+
    }
 }

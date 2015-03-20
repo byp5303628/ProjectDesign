@@ -8,6 +8,7 @@ import project.protocol.header.Packet;
 import project.protocol.header.layer2.Ethernet;
 import project.protocol.header.layer3.Arp;
 import project.soft.handle.PacketHandler;
+import project.soft.nat.NatConfig;
 import project.soft.route.ROUTE_TYPE;
 import project.soft.route.RouteItem;
 
@@ -21,6 +22,7 @@ public abstract class InterfaceInfo implements PacketHandler {
    private InterfaceBoard board;
    private String status;
    private Ipv4Address ipv4Address;
+   private NatConfig natConfig;
 
    static public enum Mode {
       Bridge, Route
@@ -33,6 +35,10 @@ public abstract class InterfaceInfo implements PacketHandler {
 
    public Ipv4Address getIpv4Address() {
       return ipv4Address;
+   }
+
+   protected InterfaceInfo() {
+      this.macAddress = MacAddress.makeMacAddress();
    }
 
    /**

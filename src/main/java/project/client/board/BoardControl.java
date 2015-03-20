@@ -2,6 +2,7 @@ package project.client.board;
 
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
+import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 
 /**
@@ -23,7 +24,8 @@ public interface BoardControl {
     * @param slotNumber
     * @throws BoardNotExistingException
     */
-   public void deleteBoard(int slotNumber) throws BoardNotExistingException;
+   public void deleteBoard(int slotNumber) throws BoardNotExistingException,
+         SlotNotExistException;
 
    /**
     * Display detail information of each board.

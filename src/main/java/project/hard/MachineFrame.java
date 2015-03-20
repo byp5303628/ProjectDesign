@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import project.client.MachineControl;
 import project.exceptions.BoardExistingException;
 import project.exceptions.BoardNotExistingException;
 import project.exceptions.SlotNotExistException;
 import project.hard.board.Board;
 import project.hard.board.FunctionBoard;
+import project.protocol.datagram.layer3.ip.Ipv4Address;
 import project.protocol.header.Packet;
 import project.soft.aspf.Aspf;
 import project.soft.mac.MacTable;
@@ -16,7 +18,7 @@ import project.soft.route.RouteTable;
 import project.soft.session.SessionItem;
 import project.soft.session.SessionTable;
 
-public class MachineFrame {
+public class MachineFrame implements MachineControl {
    /*
     * The boards can hang on the Machine Frame. Each Machine Frame have several
     * slots, for this one, have 10 slots. Each slot can get MasterBoard or
@@ -67,7 +69,7 @@ public class MachineFrame {
       SessionItem si = targetSessionTable.match(packet);
 
       // if there is no matching session item in the session table
-      if (si == null){
+      if (si == null) {
          si = SessionItem.createSessionItem(packet);
       }
 
@@ -158,6 +160,12 @@ public class MachineFrame {
       }
    }
 
+   @Override
+   public void insertBoard(Board board, int slotNumber)
+         throws BoardExistingException {
+
+   }
+
    /**
     * Remove the specific slot number's board
     *
@@ -174,6 +182,11 @@ public class MachineFrame {
       this.boardList.add(slotNum, null);
    }
 
+   @Override
+   public void displayBoards() {
+
+   }
+
    /**
     * Display the session of the machine frame
     */
@@ -188,9 +201,10 @@ public class MachineFrame {
       return this.slotNumber;
    }
 
+   @Override
+   public void updateRouteTable(Ipv4Address target, int mask,
+         Ipv4Address nextHop) {
 
-   public void sessionBackup() {
-      // (TODO: Ethan)
    }
 
    public void displayRouteTable() {
@@ -199,5 +213,35 @@ public class MachineFrame {
 
    public RouteTable getRouteTable() {
       return routeTable;
+   }
+
+   @Override
+   public void bootMachine() {
+
+   }
+
+   @Override
+   public void shutDownMachine() {
+
+   }
+
+   @Override
+   public void sessionBackUp() {
+
+   }
+
+   @Override
+   public void setIpv4Address(String pointString, int mask) {
+
+   }
+
+   @Override
+   public void shutDown() {
+
+   }
+
+   @Override
+   public void startUp() {
+
    }
 }

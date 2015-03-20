@@ -5,6 +5,7 @@ import project.protocol.header.Packet;
 
 public class BridgeInterfaceInfo extends InterfaceInfo {
    BridgeInterfaceInfo() {
+      super();
       this.setMode(Mode.Bridge);
       this.setMacAddress(MacAddress.makeMacAddress());
       this.setIpv4Address(null);

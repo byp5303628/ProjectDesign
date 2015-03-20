@@ -11,6 +11,10 @@ public class TestMachine {
    private TestInterfaceInfo interfaceInfo;
    private boolean connected = false;
 
+   public InterfaceInfo getInteface() {
+      return this.interfaceInfo;
+   }
+
    public TestMachine() {
       this.interfaceInfo = new TestInterfaceInfo();
    }
@@ -32,17 +36,27 @@ public class TestMachine {
    }
 
    public boolean receivePacket() {
-      return true;
+      return interfaceInfo.receivedPacket;
+   }
+
+   public Packet getReceivedPacket() {
+      return interfaceInfo.getReceiveDetail();
+   }
+
+   public void reset() {
+      this.interfaceInfo.reset();
    }
 
    public boolean isConnected() {
       return connected;
    }
 
-   public class TestInterfaceInfo extends InterfaceInfo {
+   private class TestInterfaceInfo extends InterfaceInfo {
       private boolean receivedPacket = false;
+      private Packet packet = null;
 
       public TestInterfaceInfo() {
+         super();
          this.setMode(Mode.Route);
          this.setMacAddress(MacAddress.makeMacAddress());
       }
@@ -50,10 +64,16 @@ public class TestMachine {
       @Override
       public void handleIn(Packet packet) {
          receivedPacket = true;
+         this.packet = packet;
       }
 
       public void reset() {
          this.receivedPacket = false;
+         this.packet = null;
+      }
+
+      public Packet getReceiveDetail() {
+         return this.packet;
       }
    }
 }
